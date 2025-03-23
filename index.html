@@ -126,7 +126,7 @@
     <h1>Strafen einsehen</h1>
     <div id="inputArea">
       <label for="key">Dein Key:</label>
-      <input type="text" id="key" placeholder="z. B. abc123" required>
+      <input type="text" id="key" placeholder="z.B. b36e3e62ac" required>
       <button id="submitBtn">Anzeigen</button>
     </div>
     <div id="result"></div>
@@ -167,10 +167,12 @@
       const user = data[key];
       const resultDiv = document.getElementById("result");
 
-      // Wichtig: Tastatur ausblenden (iOS fix)
       keyInput.blur();
 
       if (user) {
+        // Eingabe ausblenden bei gültigem Key
+        document.getElementById("inputArea").style.display = "none";
+
         let dotsHTML = '';
         for (let i = 0; i < user.punkte; i++) {
           dotsHTML += '<div class="dot green"></div>';
@@ -195,7 +197,6 @@
           ${tableHTML}
         `;
 
-        // iOS rendering fix: erzwinge Scroll & Repaint
         window.scrollBy(0, 1);
         window.scrollBy(0, -1);
 
