@@ -208,6 +208,17 @@
         window.scrollBy(0, -1);
       }
     });
+    
+    window.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const keyParam = urlParams.get("key");
+
+      if (keyParam) {
+        document.getElementById("key").value = keyParam;
+        document.getElementById("submitBtn").click();
+      }
+    });
+
   </script>
 </body>
 </html>
