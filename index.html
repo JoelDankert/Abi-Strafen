@@ -119,9 +119,60 @@
     .not-found {
       color: red;
     }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8rem;
+      color: #777;
+      background: #f0f2f5;
+      padding: 0.5rem 0;
+    }
+
+    .progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 0.5rem 0;
+      background: #f0f2f5;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    .progress-bg {
+      width: 90%;
+      max-width: 600px;
+      height: 10px;
+      background-color: #ddd;
+      margin: 0 auto;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: #007bff;
+      transition: width 0.3s ease;
+    }
+
+
   </style>
 </head>
+
+
 <body>
+  
+  <div class="progress-container">
+    <div class="progress-bg">
+      <div class="progress-fill" style="width: 10%;"></div>
+    </div>
+    <p>Schon ≈ 10% finanziert - weiter so!</p>
+  </div>
+
   <div class="container">
     <h1>Strafen einsehen</h1>
     <div id="inputArea">
@@ -132,32 +183,30 @@
     <div id="result"></div>
   </div>
 
+  <footer>
+    TESTVERSION - zuletzt aktualisiert 24.03.2025 - TESTVERSION
+    
+
   <script>
+    // Mapping for penalty codes to their corresponding reason and amount.
+    const penaltyMap = {
+      "0": { grund: "Gemeldet aber nicht aufgetaucht", betrag: "20 €" },
+      "1": { grund: "< 24h vor Dienst abgesagt", betrag: "10 €" },
+      "2": { grund: "Sachen vergessen für Dienst", betrag: "10 €" },
+      "3": { grund: "Am Ende < 5 geleistete Dienste", betrag: "50 €" }
+    };
+
+    // Data object: You can now use either an array of penalty objects or a string of penalty codes.
     const data = {
       "b28e254b30": {
         name: "Joel Dankert",
         punkte: 3,
-        strafen: [
-          { grund: "Verspätung", betrag: "2 €" },
-          { grund: "Unpünktlichkeit", betrag: "1 €" }
-        ]
+        strafen: "03"
       },
-      "6394b75747": {
-        name: "Riana Binisan",
-        punkte: 5,
-        strafen: [
-          { grund: "Handy im Unterricht", betrag: "3 €" },
-          { grund: "Kaugummi", betrag: "0,50 €" },
-          { grund: "Hausaufgaben vergessen", betrag: "1 €" }
-        ]
-      },
-      "424ef6d567": {
-        name: "Silas Truppe",
-        punkte: 7,
-        strafen: [
-          { grund: "Unentschuldigtes Fehlen", betrag: "5 €" },
-          { grund: "Klassenbuch nicht geführt", betrag: "2 €" }
-        ]
+      "424ef6d568": {
+        name: "Nele Honer",
+        punkte: 3,
+        strafen: "013"
       }
     };
 
@@ -170,7 +219,7 @@
       keyInput.blur();
 
       if (user) {
-        // Eingabe ausblenden bei gültigem Key
+        // Hide the input area for a valid key.
         document.getElementById("inputArea").style.display = "none";
 
         let dotsHTML = '';
@@ -184,8 +233,20 @@
           }
         }
 
+        // Convert penalty string to an array if needed.
+        let strafenArray = [];
+        if (typeof user.strafen === "string") {
+          for (let char of user.strafen) {
+            if (penaltyMap[char]) {
+              strafenArray.push(penaltyMap[char]);
+            }
+          }
+        } else {
+          strafenArray = user.strafen;
+        }
+
         let tableHTML = '<table>';
-        for (let s of user.strafen) {
+        for (let s of strafenArray) {
           tableHTML += `<tr><td>${s.grund}</td><td>${s.betrag}</td></tr>`;
         }
         tableHTML += '</table>';
@@ -219,7 +280,6 @@
         document.getElementById("submitBtn").click();
       }
     });
-
   </script>
 </body>
 </html>
