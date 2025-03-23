@@ -216,7 +216,7 @@
       // ADMIN view: Display an unformatted overview of all users with total sum of penalty amounts.
       if (key === "ADMIN") {
         let adminOutput = "Übersicht aller Nutzer:\n\n";
-        apdminOutput +=  "--------------------------\n";
+        adminOutput += "--------------------------\n";
         for (const userKey in data) {
           const user = data[userKey];
           // Calculate the total sum of penalties for the user.
