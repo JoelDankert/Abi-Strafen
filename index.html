@@ -158,12 +158,8 @@
       background-color: #007bff;
       transition: width 0.3s ease;
     }
-
-
   </style>
 </head>
-
-
 <body>
   
   <div class="progress-container">
@@ -173,7 +169,7 @@
     <p>Schon ≈ 10% finanziert - weiter so!</p>
   </div>
 
-  <div class="container">
+  <div class="container" id="mainContainer">
     <h1>Strafen einsehen</h1>
     <div id="inputArea">
       <label for="key">Dein Key:</label>
@@ -185,7 +181,7 @@
 
   <footer>
     TESTVERSION - zuletzt aktualisiert 24.03.2025 - TESTVERSION
-    
+  </footer>
 
   <script>
     // Mapping for penalty codes to their corresponding reason and amount.
@@ -213,10 +209,34 @@
     document.getElementById("submitBtn").addEventListener("click", function () {
       const keyInput = document.getElementById("key");
       const key = keyInput.value.trim();
-      const user = data[key];
       const resultDiv = document.getElementById("result");
 
       keyInput.blur();
+
+      // ADMIN view: Display an unformatted overview of all users with total sum of penalty amounts.
+      if (key === "ADMIN") {
+        let adminOutput = "Übersicht aller Nutzer:\n\n";
+        for (const userKey in data) {
+          const user = data[userKey];
+          // Calculate the total sum of penalties for the user.
+          let total = 0;
+          for (let char of user.strafen) {
+            if (penaltyMap[char]) {
+              total += parseInt(penaltyMap[char].betrag);
+            }
+          }
+          adminOutput += "Key: " + userKey + "\n";
+          adminOutput += "Name: " + user.name + "\n";
+          adminOutput += "Punkte: " + user.punkte + "\n";
+          adminOutput += "Strafen: " + user.strafen + "\n";
+          adminOutput += "Summe: " + total + " €\n";
+          adminOutput += "--------------------------\n";
+        }
+        document.body.innerHTML = "<pre>" + adminOutput + "</pre>";
+        return;
+      }
+
+      const user = data[key];
 
       if (user) {
         // Hide the input area for a valid key.
