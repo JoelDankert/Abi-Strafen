@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Abi-Orga – Strafen einsehen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .container {
+      background: #fff;
+      padding: 2rem 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 1.2rem;
+      color: #333;
+      font-size: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    input[type="text"] {
+      width: 75%;
+      max-width: 280px;
+      margin: 0 auto 1rem auto;
+      display: block;
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 75%;
+      max-width: 280px;
+      margin: 0 auto;
+      display: block;
+      padding: 0.8rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #result {
+      margin-top: 1.5rem;
+      text-align: left;
+    }
+
+    .dienst-label {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background-color: #ccc;
+    }
+
+    .dot.green {
+      background-color: #28a745;
+    }
+
+    .dot.red {
+      background-color: #dc3545;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td {
+      padding: 0.6rem 0.4rem;
+      border-bottom: 1px solid #eee;
+      font-size: 0.95rem;
+    }
+
+    td:first-child {
+      font-weight: bold;
+    }
+
+    .not-found {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Strafen einsehen</h1>
+    <div id="inputArea">
+      <label for="key">Dein Key:</label>
+      <input type="text" id="key" placeholder="z. B. abc123" required>
+      <button id="submitBtn">Anzeigen</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const data = {
+      "b28e254b30": {
+        name: "Joel Dankert",
+        punkte: 3,
+        strafen: [
+          { grund: "Verspätung", betrag: "2 €" },
+          { grund: "Unpünktlichkeit", betrag: "1 €" }
+        ]
+      },
+      "6394b75747": {
+        name: "Riana Binisan",
+        punkte: 5,
+        strafen: [
+          { grund: "Handy im Unterricht", betrag: "3 €" },
+          { grund: "Kaugummi", betrag: "0,50 €" },
+          { grund: "Hausaufgaben vergessen", betrag: "1 €" }
+        ]
+      },
+      "424ef6d567": {
+        name: "Silas Truppe",
+        punkte: 7,
+        strafen: [
+          { grund: "Unentschuldigtes Fehlen", betrag: "5 €" },
+          { grund: "Klassenbuch nicht geführt", betrag: "2 €" }
+        ]
+      }
+    };
+
+    document.getElementById("submitBtn").addEventListener("click", function () {
+      const keyInput = document.getElementById("key");
+      const key = keyInput.value.trim();
+      const user = data[key];
+      const resultDiv = document.getElementById("result");
+
+      // Wichtig: Tastatur ausblenden (iOS fix)
+      keyInput.blur();
+
+      if (user) {
+        let dotsHTML = '';
+        for (let i = 0; i < user.punkte; i++) {
+          dotsHTML += '<div class="dot green"></div>';
+        }
+
+        if (user.punkte <= 5) {
+          for (let i = 0; i < 5 - user.punkte; i++) {
+            dotsHTML += '<div class="dot red"></div>';
+          }
+        }
+
+        let tableHTML = '<table>';
+        for (let s of user.strafen) {
+          tableHTML += `<tr><td>${s.grund}</td><td>${s.betrag}</td></tr>`;
+        }
+        tableHTML += '</table>';
+
+        resultDiv.innerHTML = `
+          <h2>Hallo ${user.name}!</h2>
+          <div class="dienst-label">Dienste:</div>
+          <div class="dots">${dotsHTML}</div>
+          ${tableHTML}
+        `;
+
+        // iOS rendering fix: erzwinge Scroll & Repaint
+        window.scrollBy(0, 1);
+        window.scrollBy(0, -1);
+
+        setTimeout(() => {
+          resultDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      } else {
+        resultDiv.innerHTML = `<p class="not-found">Key nicht gefunden. Bitte überprüfe deine Eingabe.</p>`;
+        window.scrollBy(0, 1);
+        window.scrollBy(0, -1);
+      }
+    });
+  </script>
+</body>
+</html>
