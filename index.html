@@ -239,7 +239,7 @@
       "0": { grund: "Gemeldet aber nicht aufgetaucht", betrag: "20 €" },
       "1": { grund: "< 24h vor Dienst abgesagt", betrag: "10 €" },
       "2": { grund: "Sachen vergessen für Dienst", betrag: "10 €" },
-      "3": { grund: "Am Ende < 5 geleistete Dienste", betrag: "50 €" }
+			"3": { grund: "Am Ende < 5 geleistete Dienste", betrag: "50 €" }
     };
 
     // Mapping for punkte codes to their corresponding description.
@@ -282,18 +282,8 @@
           adminOutput += "Key: " + userKey + "\n";
           adminOutput += "Name: " + user.name + "\n";
           // Process punkte for admin view
-          let punkteCount;
-          if (typeof user.punkte === "string") {
-              punkteCount = 0;
-              for (let char of user.punkte) {
-                if (punkteMap[char]) {
-                  punkteCount++;
-                }
-              }
-          } else {
-              punkteCount = user.punkte.length;
-          }
-          adminOutput += "Punkte: " + punkteCount + "\n";
+          
+          adminOutput += "Punkte: " + user.punkte + "\n";
           adminOutput += "Strafen: " + user.strafen + "\n";
           adminOutput += "Summe: " + total + " €\n";
           adminOutput += "--------------------------\n";
