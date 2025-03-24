@@ -6,21 +6,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
 
-	html, body {
-	  margin: 0;
-	  padding: 0;
-	  min-height: 100vh;
-	}
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
 
-	body {
-	  font-family: Arial, sans-serif;
-	  background: #f0f2f5;
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  justify-content: flex-start;
-	  padding: 7rem;
-	}
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 7rem;
+    }
   
 
     .container {
@@ -91,7 +91,7 @@
     /* Tooltip container so the tooltip is anchored right beside "info" */
     .info-wrapper {
       position: relative;
-      display: inline-block; /* keep "info" and tooltip together inline */
+      display: inline-block;
       margin-left: 0.5rem;
     }
 
@@ -104,7 +104,7 @@
     /* The tooltip that shows/hides on hover or tap */
     .tooltip {
       position: absolute;
-      top: 110%; /* just below the "info" text */
+      top: 110%;
       left: 0;
       padding: 0.5rem;
       background: #f8f9fa;
@@ -112,7 +112,7 @@
       border-radius: 0.5rem;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       font-size: 0.9rem;
-      display: none; /* hidden by default */
+      display: none;
       z-index: 9999;
       width: max-content;
       white-space: nowrap;
@@ -242,19 +242,22 @@
       "3": { grund: "Am Ende < 5 geleistete Dienste", betrag: "50 €" }
     };
 
-    // Sample data object: "punkte" is an array of reasons for the green dots.
-    const data = {
-      "b28e254b30": { // b28e254b30
-        name: "Joel Dankert",
-        punkte: ["01.01.2001 - Kuchenverkauf", "02.02.2002 - Briefe verteilen", "00.00.0000 - ich find keine Beispiele mehr lol"],
-        strafen: "1210"
-      },
-      "arsch": {
-        name: "Silas Truppe",
-        punkte: ["11.09.2009 - Unterstützung bei meinem Projekt", "1. V.Chr. - Jesus geholfen", "2025 - Herr Jülgs Glatze massiert"],
-        strafen: "000011"
-      }
+    // Mapping for punkte codes to their corresponding description.
+    const punkteMap = {
+      "0": "Verkauf - Getränke/Essen",
+      "1": "Briefe verteilen"
     };
+
+
+    let data = {};
+      
+    fetch('data.json')
+      .then(response => response.json())
+      .then(json => {
+        data = json;
+      })
+      .catch(error => console.error('Fehler beim Laden der JSON:', error));
+      
 
     document.getElementById("submitBtn").addEventListener("click", function () {
       const keyInput = document.getElementById("key");
@@ -278,7 +281,19 @@
           }
           adminOutput += "Key: " + userKey + "\n";
           adminOutput += "Name: " + user.name + "\n";
-          adminOutput += "Punkte: " + user.punkte.length + "\n";
+          // Process punkte for admin view
+          let punkteCount;
+          if (typeof user.punkte === "string") {
+              punkteCount = 0;
+              for (let char of user.punkte) {
+                if (punkteMap[char]) {
+                  punkteCount++;
+                }
+              }
+          } else {
+              punkteCount = user.punkte.length;
+          }
+          adminOutput += "Punkte: " + punkteCount + "\n";
           adminOutput += "Strafen: " + user.strafen + "\n";
           adminOutput += "Summe: " + total + " €\n";
           adminOutput += "--------------------------\n";
@@ -293,13 +308,25 @@
         // Hide the input area if the key is valid
         document.getElementById("inputArea").style.display = "none";
 
+        // Convert punkte to an array if needed, using punkteMap
+        let punkteArray = [];
+        if (typeof user.punkte === "string") {
+          for (let char of user.punkte) {
+            if (punkteMap[char]) {
+              punkteArray.push(punkteMap[char]);
+            }
+          }
+        } else {
+          punkteArray = user.punkte;
+        }
+
         // Build the dots using the length of the 'punkte' array
         let dotsHTML = "";
-        for (let i = 0; i < user.punkte.length; i++) {
+        for (let i = 0; i < punkteArray.length; i++) {
           dotsHTML += '<div class="dot green"></div>';
         }
-        if (user.punkte.length < 5) {
-          for (let i = 0; i < 5 - user.punkte.length; i++) {
+        if (punkteArray.length < 5) {
+          for (let i = 0; i < 5 - punkteArray.length; i++) {
             dotsHTML += '<div class="dot red"></div>';
           }
         }
@@ -322,7 +349,7 @@
         }
         tableHTML += '</table>';
 
-        // Insert the HTML, including the tooltip container
+        // Insert the HTML, including the tooltip container with punkte
         resultDiv.innerHTML = `
           <h2>Hallo ${user.name}!</h2>
           <div class="dienst-label">
@@ -331,7 +358,7 @@
               <span id="info-text" class="info-text"><em>info</em></span>
               <div id="tooltip" class="tooltip">
                 <ul style="margin:0; padding-left:20px;">
-                  ${user.punkte.map(item => `<li>${item}</li>`).join("")}
+                  ${punkteArray.map(item => `<li>${item}</li>`).join("")}
                 </ul>
               </div>
             </div>
@@ -344,9 +371,7 @@
         const infoWrapper = document.querySelector(".info-wrapper");
         const infoText = document.getElementById("info-text");
         infoText.addEventListener("click", function (event) {
-          // Prevent click from immediately closing the tooltip
           event.stopPropagation();
-          // Toggle the 'active' class to show/hide the tooltip
           infoWrapper.classList.toggle("active");
         });
 
@@ -359,7 +384,6 @@
         document.getElementById("tooltip").addEventListener("click", function (ev) {
           ev.stopPropagation();
         });
-
 
       } else {
         // Invalid key
