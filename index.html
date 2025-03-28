@@ -146,6 +146,14 @@
       background-color: #28a745;
     }
 
+		.dot.half {
+      background: linear-gradient(to right, #28a745ff 50%, #dc354500 50%);
+		}
+
+		.dot.halfred {
+		  background: linear-gradient(to right, #28a745 50%, #dc3545 50%);
+		}
+
     .dot.red {
       background-color: #dc3545;
     }
@@ -230,10 +238,19 @@
   </div>
 
   <footer>
-    zuletzt aktualisiert 24.03.2025
+     Kann Fehler enthalten - zuletzt aktualisiert 28.03.2025 - Handschriftliche Liste hat Vorrang
   </footer>
 
   <script>
+
+	  function log(msg) {
+	    const logEl = document.getElementById("log");
+	    logEl.innerHTML += `<div>${msg}</div>`;
+	  }
+	
+	  
+
+
     // Mapping for penalty codes to their corresponding reason and amount.
     const penaltyMap = {
       "0": { grund: "Gemeldet aber nicht aufgetaucht", betrag: "20 €" },
@@ -245,13 +262,14 @@
     // Mapping for punkte codes to their corresponding description.
     const punkteMap = {
       "0": "Verkauf - Getränke/Essen",
-      "1": "Briefe verteilen"
+      "1": "Briefe verteilen",
+			"2": "Bewirtung Theater"
     };
 
 
     let data = {};
       
-    fetch('data.json')
+    fetch('data.json?nocache='+Date.now())
       .then(response => response.json())
       .then(json => {
         data = json;
@@ -274,16 +292,26 @@
           const user = data[userKey];
           // Calculate total sum of penalties
           let total = 0;
+					let skipnext = false;
           for (let char of user.strafen) {
-            if (penaltyMap[char]) {
-              total += parseInt(penaltyMap[char].betrag);
+						if (char == '-'){
+							skipnext = true;
+						}
+            else if (penaltyMap[char]) {
+							if (skipnext){
+								skipnext = false;
+							}
+							else{
+								total += parseInt(penaltyMap[char].betrag);	
+							}
             }
           }
           adminOutput += "Key: " + userKey + "\n";
           adminOutput += "Name: " + user.name + "\n";
           
           adminOutput += "Punkte: " + user.punkte.length + "\n";
-          adminOutput += "Strafen: " + user.strafen + "\n";
+					adminOutput += "Halbe: " + user.punktehalb.length + "\n";
+          adminOutput += "Strafen: " + user.strafen.replaceAll("-","").length + "\n";
           adminOutput += "Summe: " + total + " €\n";
           adminOutput += "--------------------------\n";
         }
@@ -305,56 +333,121 @@
               punkteArray.push(punkteMap[char]);
             }
           }
+        } else if (Array.isArray(user.punkte)) {
+          punkteArray = user.punkte.map(code => punkteMap[code] || code);
         } else {
-          punkteArray = user.punkte;
+          punkteArray = [];
         }
+        
+        let punkteArrayHalf = [];
+        if (typeof user.punktehalb === "string") {
+          for (let char of user.punktehalb) {
+            if (punkteMap[char]) {
+              punkteArrayHalf.push(punkteMap[char]);
+            }
+          }
+        } else if (Array.isArray(user.punktehalb)) {
+          punkteArrayHalf = user.punktehalb.map(code => punkteMap[code] || code);
+        } else {
+          punkteArrayHalf = [];
+        }
+
+
+				let pointsactual = 0;
+				for (let i = 0; i < punkteArray.length; i++){
+					pointsactual += 1;
+				}
+				for (let i = 0; i < punkteArrayHalf.length; i++){
+					pointsactual += 0.5;
+				}
 
         // Build the dots using the length of the 'punkte' array
         let dotsHTML = "";
-        for (let i = 0; i < punkteArray.length; i++) {
-          dotsHTML += '<div class="dot green"></div>';
+        for (let i = 0; i < pointsactual; i++) {
+					if (pointsactual - i < 0.9){
+						if (pointsactual > 5){
+							dotsHTML += '<div class="dot half"></div>';
+						}
+						else{
+							dotsHTML += '<div class="dot halfred"></div>';
+						}
+						
+					}
+					else{
+         		dotsHTML += '<div class="dot green"></div>';
+					}
         }
-        if (punkteArray.length < 5) {
-          for (let i = 0; i < 5 - punkteArray.length; i++) {
-            dotsHTML += '<div class="dot red"></div>';
+        if (pointsactual < 5) {
+          for (let i = 0; i < 5 - pointsactual; i++) {
+						if (5 - pointsactual - i >= 0.9){
+							dotsHTML += '<div class="dot red"></div>';
+						}
           }
         }
+				else {
+					dotsHTML += '<t>- Danke, weiter so!</t>'
+				}
 
         // Convert penalty string to an array if needed
+				
         let strafenArray = [];
-        if (typeof user.strafen === "string") {
+        
+        if (user?.strafen && typeof user.strafen === "string") {
+          let dostrike = false;
           for (let char of user.strafen) {
-            if (penaltyMap[char]) {
-              strafenArray.push(penaltyMap[char]);
+            if (char === '-') {
+              dostrike = true;
+                  } else {
+              if (dostrike && penaltyMap[char]) {
+                dostrike = false;
+                strafenArray.push({
+                  grund: "-" + penaltyMap[char].grund,
+                  betrag: penaltyMap[char].betrag
+                });
+              } else if (penaltyMap[char]) {
+                strafenArray.push(penaltyMap[char]);
+              }
             }
           }
-        } else {
+        } else if (Array.isArray(user?.strafen)) {
           strafenArray = user.strafen;
+        } else {
+          strafenArray = [];
         }
 
         let tableHTML = '<table>';
         for (let s of strafenArray) {
-          tableHTML += `<tr><td>${s.grund}</td><td>${s.betrag}</td></tr>`;
+          const isStruck = s.grund.startsWith("-");
+          const grundHTML = isStruck ? `<s>${s.grund.substring(1)}</s>` : s.grund;
+          const betragHTML = isStruck ? `<s>${s.betrag}</s>` : s.betrag;
+          tableHTML += `<tr><td>${grundHTML}</td><td>${betragHTML}</td></tr>`;
         }
+
         tableHTML += '</table>';
 
         // Insert the HTML, including the tooltip container with punkte
-        resultDiv.innerHTML = `
-          <h2>Hallo ${user.name}!</h2>
-          <div class="dienst-label">
-            Dienste:
-            <div class="info-wrapper">
-              <span id="info-text" class="info-text"><em>info</em></span>
-              <div id="tooltip" class="tooltip">
-                <ul style="margin:0; padding-left:20px;">
-                  ${punkteArray.map(item => `<li>${item}</li>`).join("")}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="dots">${dotsHTML}</div>
-          ${tableHTML}
-        `;
+				resultDiv.innerHTML = `
+				  <h2>Hallo ${user.name}!</h2>
+				  <div class="dienst-label">
+				    Dienste:
+				    <div class="info-wrapper">
+				      <span id="info-text" class="info-text"><em>info</em></span>
+				      <div id="tooltip" class="tooltip">
+								<t>Punkte:</t>
+				        <ul style="margin:0; padding-left:20px;">
+				          ${punkteArray.map(item => `<li><strong>${item}</strong></li>`).join("")}
+				        </ul>
+								<br>
+								<t>Halbe Punkte:</t>
+				        <ul style="margin:0 0 0 20px; padding-left:0;">
+				          ${punkteArrayHalf.map(item => `<li>${item}</li>`).join("")}
+				        </ul>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="dots">${dotsHTML}</div>
+				  ${tableHTML}
+				`;
 
         // For mobile/tap: toggle tooltip on click
         const infoWrapper = document.querySelector(".info-wrapper");
