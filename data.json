@@ -2,7 +2,7 @@
   "4c52d15": {
     "name": "Jule Aicher",
     "punkte": "1",
-		"punktehalb": "",
+		"punktehalb": "2",
     "strafen": ""
   },
   "386ea53": {
@@ -43,7 +43,7 @@
   },
   "8b503ba": {
     "name": "Addison Berner",
-    "punkte": "1000",
+    "punkte": "100022",
 		"punktehalb": "",
     "strafen": ""
   },
@@ -74,7 +74,7 @@
   "7ad7311": {
     "name": "Lotta Brettner",
     "punkte": "1",
-		"punktehalb": "",
+		"punktehalb": "2",
     "strafen": ""
   },
   "327a83f": {
@@ -91,7 +91,7 @@
   },
   "7677b0f": {
     "name": "Marijan Celic",
-    "punkte": "1",
+    "punkte": "12",
 		"punktehalb": "",
     "strafen": ""
   },
@@ -170,13 +170,13 @@
   "47b49cb": {
     "name": "Tabea Holler",
     "punkte": "10",
-		"punktehalb": "",
+		"punktehalb": "2",
     "strafen": ""
   },
   "e2a3a6a": {
     "name": "Nele Honer",
     "punkte": "1",
-		"punktehalb": "",
+		"punktehalb": "2",
     "strafen": ""
   },
   "91e0476": {
@@ -217,7 +217,7 @@
   },
   "2e1e182": {
     "name": "Manuel Löbel",
-    "punkte": "1",
+    "punkte": "12",
 		"punktehalb": "",
     "strafen": ""
   },
@@ -229,7 +229,7 @@
   },
   "36cf0af": {
     "name": "Sofia Martin",
-    "punkte": "10",
+    "punkte": "102",
 		"punktehalb": "3",
     "strafen": ""
   },
@@ -284,19 +284,19 @@
   "79f24fc": {
     "name": "Mathilde Rüberg",
     "punkte": "10",
-		"punktehalb": "",
+		"punktehalb": "2",
     "strafen": ""
   },
   "75f864e": {
     "name": "Denis Rübhagen",
-    "punkte": "",
+    "punkte": "2",
 		"punktehalb": "",
     "strafen": ""
   },
   "b13be43": {
     "name": "Melis Sahin",
-    "punkte": "100",
-		"punktehalb": "",
+    "punkte": "1002",
+		"punktehalb": "2",
     "strafen": ""
   },
   "4834c77": {
@@ -331,7 +331,7 @@
   },
   "849f477": {
     "name": "Noah Stadelhofer",
-    "punkte": "1002",
+    "punkte": "100222",
 		"punktehalb": "3",
     "strafen": ""
   },
@@ -355,7 +355,7 @@
   },
   "dfd8db9": {
     "name": "Alexandru Todor-Prundar",
-    "punkte": "",
+    "punkte": "2",
 		"punktehalb": "",
     "strafen": ""
   },
@@ -397,14 +397,14 @@
   },
   "591d404": {
     "name": "Laurin Witt",
-    "punkte": "10",
+    "punkte": "102",
 		"punktehalb": "",
     "strafen": ""
   },
 	"0c7e262": {
     "name": "Kayla Woelke",
-    "punkte": "102",
-		"punktehalb": "",
+    "punkte": "1022",
+		"punktehalb": "2",
     "strafen": ""
   }
 }
