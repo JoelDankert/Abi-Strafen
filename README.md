@@ -61,7 +61,7 @@ Eingabe `end` zum Ausführen oder `exit` zum Beenden.
 
 ## Datenschutz
 
-Alle Nutzerschlüssel sind mit SHA-256 gehasht, und auf der öffentlichen Seite werden lediglich Kürzel angezeigt – vollständige Namen sind dort nicht sichtbar. Die Datenstruktur unterstützt somit eine gewisse Anonymisierung.
+Alle Nutzerschlüssel sind mit SHA-256 gehasht. Die Datenstruktur unterstützt somit eine gewisse Anonymisierung.
 
 Es ist jedoch zu beachten: Da das Repository öffentlich zugänglich ist, handelt es sich **nicht** um eine datenschutzkonforme Lösung. Ziel dieses Projekts ist es vielmehr, die klassischen öffentlichen „Stift-und-Papier“-Listen abzulösen und eine digitale Alternative zu bieten – insbesondere, um zu vermeiden, dass Straflisten oder Dienstzuweisungen offen in Stufengruppen gepostet werden.
 
