@@ -242,261 +242,193 @@
     Bei Fehlern bitte beim Abikassen-Komitee melden.</p>
   </footer>
 
-  <script>
+<script>
+/* -----------------------------------------------------------
+   Hilfsfunktionen
+----------------------------------------------------------- */
+function splitTokens(str = "") {
+  // Trim und alle Whitespaces (Tab, Zeilenumbruch, Mehrfach-Space) als Trenner
+  return str.trim().split(/\s+/).filter(Boolean);
+}
 
-	  function log(msg) {
-	    const logEl = document.getElementById("log");
-	    logEl.innerHTML += `<div>${msg}</div>`;
-	  }
-	
-	  
+function log(msg) {
+  const logEl = document.getElementById("log");
+  if (logEl) logEl.innerHTML += `<div>${msg}</div>`;
+}
 
+/* -----------------------------------------------------------
+   Konfigurationstabellen
+----------------------------------------------------------- */
+const penaltyMap = {
+  "0": { grund: "Gemeldet aber nicht aufgetaucht",  betrag: "20 €" },
+  "1": { grund: "< 24 h vor Dienst abgesagt",        betrag: "10 €" },
+  "2": { grund: "Sachen vergessen für Dienst",       betrag: "10 €" },
+  "3": { grund: "Am Ende < 5 geleistete Dienste",    betrag: "50 €" }
+};
 
-    // Mapping for penalty codes to their corresponding reason and amount.
-    const penaltyMap = {
-      "0": { grund: "Gemeldet aber nicht aufgetaucht", betrag: "20 €" },
-      "1": { grund: "< 24h vor Dienst abgesagt", betrag: "10 €" },
-      "2": { grund: "Sachen vergessen für Dienst", betrag: "10 €" },
-			"3": { grund: "Am Ende < 5 geleistete Dienste", betrag: "50 €" }
-    };
+const punkteMap = {
+  "0": "Verkauf Getränke/Essen",
+  "1": "Briefe verteilen",
+  "2": "Bewirtung Theater",
+  "3": "Kuchen backen",
+  "4": "Verkauf Flohmarkt",
+  "5": "Verkauf Badminton",
+  "6": "Salat gemacht",
+  "7": "Waffelteig gemacht",
+  "8": "Bewirtung 5er",
+  "9": "Bewirtung Abiball"
+};
 
-    // Mapping for punkte codes to their corresponding description.
-    const punkteMap = {
-      "0": "Verkauf Getränke/Essen",
-      "1": "Briefe verteilen",
-			"2": "Bewirtung Theater",
-			"3": "Kuchen backen",
-			"4": "Verkauf Flohmarkt",
-			"5": "Verkauf Badminton",
-			"6": "Salat gemacht",
-			"7": "Waffelteig gemacht"
-    };
+/* -----------------------------------------------------------
+   JSON laden
+----------------------------------------------------------- */
+let data = {};
+fetch("data.json?nocache=" + Date.now())
+  .then(r => r.json())
+  .then(json => { data = json; })
+  .catch(err => console.error("Fehler beim Laden der JSON:", err));
 
+/* -----------------------------------------------------------
+   Klick-Handler
+----------------------------------------------------------- */
+document.getElementById("submitBtn").addEventListener("click", showUser);
 
-    let data = {};
-      
-    fetch('data.json?nocache='+Date.now())
-      .then(response => response.json())
-      .then(json => {
-        data = json;
-      })
-      .catch(error => console.error('Fehler beim Laden der JSON:', error));
-      
+function showUser() {
+  const keyInput  = document.getElementById("key");
+  const key       = keyInput.value.trim();
+  const resultDiv = document.getElementById("result");
+  keyInput.blur();
 
-    document.getElementById("submitBtn").addEventListener("click", function () {
-      const keyInput = document.getElementById("key");
-      const key = keyInput.value.trim();
-      const resultDiv = document.getElementById("result");
+  /* ---------- ADMIN ---------- */
+  if (key === "ADMIN") {
+    let out = "Übersicht aller Nutzer:\n\n---------------------------------\n";
+    for (const id in data) {
+      const u = data[id];
 
-      keyInput.blur();
+      const punkte      = splitTokens(u.punkte);
+      const punktehalb  = splitTokens(u.punktehalb);
+      const strafenTok  = splitTokens(u.strafen);
 
-      // ADMIN view: show raw data
-      if (key === "ADMIN") {
-        let adminOutput = "Übersicht aller Nutzer:\n\n";
-        adminOutput += "--------------------------\n";
-        for (const userKey in data) {
-          const user = data[userKey];
-          // Calculate total sum of penalties
-          let total = 0;
-					let skipnext = false;
-          for (let char of user.strafen) {
-						if (char == '-'){
-							skipnext = true;
-						}
-            else if (penaltyMap[char]) {
-							if (skipnext){
-								skipnext = false;
-							}
-							else{
-								total += parseInt(penaltyMap[char].betrag);	
-							}
-            }
-          }
-          adminOutput += "Key: " + userKey + "\n";
-          adminOutput += "Name: " + user.name + "\n";
-          
-          adminOutput += "Punkte: " + user.punkte.length + "\n";
-					adminOutput += "Halbe: " + user.punktehalb.length + "\n";
-          adminOutput += "Strafen: " + user.strafen.replaceAll("-","").length + "\n";
-          adminOutput += "Summe: " + total + " €\n";
-          adminOutput += "--------------------------\n";
-        }
-        document.body.innerHTML = "<pre>" + adminOutput + "</pre>";
-        return;
-      }
+      // Summe berechnen (nur nicht gestrichene Strafen)
+      let sum = 0;
+      strafenTok.forEach(t => {
+        if (!t.startsWith("-") && penaltyMap[t])
+          sum += parseInt(penaltyMap[t].betrag);
+      });
 
-      const user = data[key];
+      out += `Key: ${id}\nName: ${u.name}\n`;
+      out += `Punkte: ${punkte.length}\nHalbe: ${punktehalb.length}\n`;
+      out += `Strafen: ${strafenTok.filter(t => !t.startsWith("-")).length}\n`;
+      out += `Summe: ${sum} €\n---------------------------------\n`;
+    }
+    document.body.innerHTML = "<pre>" + out + "</pre>";
+    return;
+  }
 
-      if (user) {
-        // Hide the input area if the key is valid
-        document.getElementById("inputArea").style.display = "none";
+  /* ---------- Normaler Nutzer ---------- */
+  const user = data[key];
+  if (!user) {
+    resultDiv.innerHTML =
+      '<p class="not-found">Key nicht gefunden. Bitte überprüfe deine Eingabe.</p>';
+    window.scrollBy(0, 1); window.scrollBy(0, -1);
+    return;
+  }
 
-        // Convert punkte to an array if needed, using punkteMap
-        let punkteArray = [];
-        if (typeof user.punkte === "string") {
-          for (let char of user.punkte) {
-            if (punkteMap[char]) {
-              punkteArray.push(punkteMap[char]);
-            }
-          }
-        } else if (Array.isArray(user.punkte)) {
-          punkteArray = user.punkte.map(code => punkteMap[code] || code);
-        } else {
-          punkteArray = [];
-        }
-        
-        let punkteArrayHalf = [];
-        if (typeof user.punktehalb === "string") {
-          for (let char of user.punktehalb) {
-            if (punkteMap[char]) {
-              punkteArrayHalf.push(punkteMap[char]);
-            }
-          }
-        } else if (Array.isArray(user.punktehalb)) {
-          punkteArrayHalf = user.punktehalb.map(code => punkteMap[code] || code);
-        } else {
-          punkteArrayHalf = [];
-        }
+  // Hide input area
+  document.getElementById("inputArea").style.display = "none";
 
+  const punkteTokens      = splitTokens(user.punkte);
+  const punkteHalfTokens  = splitTokens(user.punktehalb);
+  const strafenTokens     = splitTokens(user.strafen);
 
-				let pointsactual = 0;
-				for (let i = 0; i < punkteArray.length; i++){
-					pointsactual += 1;
-				}
-				for (let i = 0; i < punkteArrayHalf.length; i++){
-					pointsactual += 0.5;
-				}
+  /* ---------- Dienste-Arrays ---------- */
+  const punkteArray     = punkteTokens     .map(c => punkteMap[c]).filter(Boolean);
+  const punkteHalfArray = punkteHalfTokens .map(c => punkteMap[c]).filter(Boolean);
 
-        // Build the dots using the length of the 'punkte' array
-        let dotsHTML = "";
-        for (let i = 0; i < pointsactual; i++) {
-					if (pointsactual - i < 0.9){
-						if (pointsactual > 5){
-							dotsHTML += '<div class="dot half"></div>';
-						}
-						else{
-							dotsHTML += '<div class="dot halfred"></div>';
-						}
-						
-					}
-					else{
-         		dotsHTML += '<div class="dot green"></div>';
-					}
-        }
-        if (pointsactual < 5) {
-          for (let i = 0; i < 5 - pointsactual; i++) {
-						if (5 - pointsactual - i >= 0.9){
-							dotsHTML += '<div class="dot red"></div>';
-						}
-          }
-        }
-				else {
-					dotsHTML += '<t>- Danke, weiter so!</t>'
-				}
+  /* ---------- Punkte-Zählung ---------- */
+  let pointsTotal = punkteArray.length + punkteHalfArray.length * 0.5;
 
-        // Convert penalty string to an array if needed
-				
-        let strafenArray = [];
-        
-        if (user?.strafen && typeof user.strafen === "string") {
-          let dostrike = false;
-          for (let char of user.strafen) {
-            if (char === '-') {
-              dostrike = true;
-                  } else {
-              if (dostrike && penaltyMap[char]) {
-                dostrike = false;
-                strafenArray.push({
-                  grund: "-" + penaltyMap[char].grund,
-                  betrag: penaltyMap[char].betrag
-                });
-              } else if (penaltyMap[char]) {
-                strafenArray.push(penaltyMap[char]);
-              }
-            }
-          }
-        } else if (Array.isArray(user?.strafen)) {
-          strafenArray = user.strafen;
-        } else {
-          strafenArray = [];
-        }
+  /* ---------- Dots-HTML ---------- */
+  let dotsHTML = "";
+  for (let i = 0; i < Math.floor(pointsTotal); i++)
+    dotsHTML += '<div class="dot green"></div>';
 
-        let tableHTML = '<table>';
-        for (let s of strafenArray) {
-          const isStruck = s.grund.startsWith("-");
-          const grundHTML = isStruck ? `<s>${s.grund.substring(1)}</s>` : s.grund;
-          const betragHTML = isStruck ? `<s>${s.betrag}</s>` : s.betrag;
-          tableHTML += `<tr><td>${grundHTML}</td><td>${betragHTML}</td></tr>`;
-        }
+  if (pointsTotal % 1 !== 0) {      // halber Punkt
+    dotsHTML += pointsTotal >= 5
+      ? '<div class="dot half"></div>'
+      : '<div class="dot halfred"></div>';
+  }
 
-        tableHTML += '</table>';
+  if (pointsTotal < 5) {
+    for (let i = 0; i < 5 - Math.ceil(pointsTotal); i++)
+      dotsHTML += '<div class="dot red"></div>';
+  } else {
+    dotsHTML += "<t> - Danke, weiter so!</t>";
+  }
 
-        // Insert the HTML, including the tooltip container with punkte
-				resultDiv.innerHTML = `
-				  <h2>Hallo ${user.name}!</h2>
-				  <div class="dienst-label">
-				    Dienste:
-				    <div class="info-wrapper">
-				      <span id="info-text" class="info-text"><em>info</em></span>
-				      <div id="tooltip" class="tooltip">
-								<t>Punkte:</t>
-				        <ul style="margin:0; padding-left:20px;">
-				          ${punkteArray.map(item => `<li><strong>${item}</strong></li>`).join("")}
-				        </ul>
-								<br>
-								<t>Halbe Punkte:</t>
-				        <ul style="margin:0 0 0 20px; padding-left:0;">
-				          ${punkteArrayHalf.map(item => `<li>${item}</li>`).join("")}
-				        </ul>
-				      </div>
-				    </div>
-				  </div>
-				  <div class="dots">${dotsHTML}</div>
-				  ${tableHTML}
-				`;
-
-        // For mobile/tap: toggle tooltip on click
-        const infoWrapper = document.querySelector(".info-wrapper");
-        const infoText = document.getElementById("info-text");
-        infoText.addEventListener("click", function (event) {
-          event.stopPropagation();
-          infoWrapper.classList.toggle("active");
-        });
-
-        // Clicking anywhere outside hides the tooltip
-        document.addEventListener("click", function () {
-          infoWrapper.classList.remove("active");
-        });
-
-        // Prevent a click on the tooltip itself from closing it
-        document.getElementById("tooltip").addEventListener("click", function (ev) {
-          ev.stopPropagation();
-        });
-
-      } else {
-        // Invalid key
-        resultDiv.innerHTML = `<p class="not-found">Key nicht gefunden. Bitte überprüfe deine Eingabe.</p>`;
-        window.scrollBy(0, 1);
-        window.scrollBy(0, -1);
-      }
+  /* ---------- Strafen-Tabelle ---------- */
+  const strafenArray = [];
+  strafenTokens.forEach(t => {
+    const struck = t.startsWith("-");
+    const code   = struck ? t.slice(1) : t;
+    const map    = penaltyMap[code];
+    if (!map) return;
+    strafenArray.push({
+      grund  : struck ? "-" + map.grund : map.grund,
+      betrag : map.betrag
     });
-    
-    // Support for ?key=123 in the URL
-    window.addEventListener("DOMContentLoaded", () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const keyParam = urlParams.get("key");
-    
-      if (keyParam) {
-        document.getElementById("key").value = keyParam;
-        // Delay click until data is loaded
-        const waitForData = setInterval(() => {
-          if (Object.keys(data).length !== 0) {
-            document.getElementById("submitBtn").click();
-            clearInterval(waitForData);
-          }
-        }, 100);
-      }
-    });
-  </script>
-</body>
-</html>
+  });
+
+  let tableHTML = "<table>";
+  for (const s of strafenArray) {
+    const g = s.grund.startsWith("-") ? "<s>" + s.grund.slice(1) + "</s>" : s.grund;
+    const b = s.grund.startsWith("-") ? "<s>" + s.betrag + "</s>"            : s.betrag;
+    tableHTML += `<tr><td>${g}</td><td>${b}</td></tr>`;
+  }
+  tableHTML += "</table>";
+
+  /* ---------- Render ---------- */
+  resultDiv.innerHTML = `
+    <h2>Hallo ${user.name}!</h2>
+    <div class="dienst-label">
+      Dienste:
+      <div class="info-wrapper">
+        <span id="info-text" class="info-text"><em>info</em></span>
+        <div id="tooltip" class="tooltip">
+          <t>Punkte:</t>
+          <ul style="margin:0; padding-left:20px;">
+            ${punkteArray.map(p => `<li><strong>${p}</strong></li>`).join("")}
+          </ul><br>
+          <t>Halbe Punkte:</t>
+          <ul style="margin:0; padding-left:20px;">
+            ${punkteHalfArray.map(p => `<li>${p}</li>`).join("")}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="dots">${dotsHTML}</div>
+    ${tableHTML}
+  `;
+
+  /* ---------- Tooltip-Toggle (mobil) ---------- */
+  const infoWrapper = document.querySelector(".info-wrapper");
+  document.getElementById("info-text").onclick = e => {
+    e.stopPropagation();
+    infoWrapper.classList.toggle("active");
+  };
+  document.addEventListener("click", () => infoWrapper.classList.remove("active"));
+  document.getElementById("tooltip").onclick = e => e.stopPropagation();
+}
+
+/* -----------------------------------------------------------
+   Auto-Lookup mit ?key=XYZ
+----------------------------------------------------------- */
+window.addEventListener("DOMContentLoaded", () => {
+  const kp = new URLSearchParams(location.search).get("key");
+  if (!kp) return;
+  document.getElementById("key").value = kp;
+  const wait = setInterval(() => {
+    if (Object.keys(data).length) { showUser(); clearInterval(wait); }
+  }, 80);
+});
+</script>

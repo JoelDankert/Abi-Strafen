@@ -1,139 +1,128 @@
-import json
-import re
+#!/usr/bin/env python3
+# batch_update_space.py
+#
+# Format-Erwartung in data.json
+# -----------------------------
+# "punkte"      = "3 3 2 1"
+# "punktehalb"  = "4 7"          # halbe Punkte
+# "strafen"     = "3 3 2 -1 -3"  #  -N  ⇒ gestrichene Strafe N
+#
+# Eingabezeilen (Beispiele)
+#   P3:   Max
+#   H7:   Lisa
+#   S2:   Max
+#   S-2:  Max          # markiert erste 2 als gestrichen oder hängt "-2" an
+#
+# Nach jeder Zeile wird sofort in die JSON-Datei geschrieben.
 
-# ANSI colors
-GREEN = "\033[92m"
+import json, re, sys
+from pathlib import Path
+
+GREEN  = "\033[92m"
 YELLOW = "\033[93m"
-RED = "\033[91m"
-CYAN = "\033[96m"
-RESET = "\033[0m"
+RED    = "\033[91m"
+CYAN   = "\033[96m"
+RESET  = "\033[0m"
+
+FILE_PATH = Path("data.json")
 
 def find_matching_user_ids(name_to_find_lower, data):
     if not name_to_find_lower:
         return []
+    exact = [uid for uid,d in data.items()
+             if d.get("name","").lower() == name_to_find_lower]
+    if exact:
+        return exact
 
-    matched_ids = []
+    # Teile des Namens
+    partial = [uid for uid,d in data.items()
+               if name_to_find_lower in d.get("name","").lower().split()]
+    return partial
 
-    for user_id, details in data.items():
-        if details.get("name", "").lower() == name_to_find_lower:
-            return [user_id]
+def apply_update(person, field, value, code):
+    current = person.get(field,"").strip()
 
-    for user_id, details in data.items():
-        current_name_parts = details.get("name", "").lower().split()
-        if name_to_find_lower in current_name_parts:
-            matched_ids.append(user_id)
+    # ---------------- Strafen-Logik ----------------
+    if field == "strafen":
+        if value.startswith("-"):                  # S-<Zahl>
+            clean = value[1:]
+            tokens = current.split()
+            for i,t in enumerate(tokens):
+                if t == clean:                     # erste unmarkierte finden
+                    tokens[i] = f"-{clean}"
+                    break
+            else:                                  # keine gefunden ⇒ hinten dran
+                tokens.append(f"-{clean}")
+            person[field] = " ".join(tokens).strip()
+        else:                                      # S<Zahl>
+            person[field] = (current + " " + value).strip() if current else value
+    # ---------------- Punkte / Halbe ----------------
+    else:
+        person[field] = (current + " " + value).strip() if current else value
 
-    return list(set(matched_ids))
-
-def prompt_user_to_select(name, matched_ids, data, line_num):
-    print(f"{YELLOW}Line {line_num}: Ambiguous match for '{name}'. Please select the correct one(s):{RESET}")
-    for idx, uid in enumerate(matched_ids, 1):
-        person = data.get(uid)
-        print(f"{CYAN}{idx}) {person.get('name', 'N/A')} (ID: {uid}){RESET}")
-    print(f"{YELLOW}Enter number(s) like 1,2 or 's' to skip:{RESET} ", end="")
-
-    response = input().strip()
-    if not response or response.lower() == 's':
-        return []
-
-    selections = []
-    for part in response.split(','):
-        try:
-            index = int(part.strip())
-            if 1 <= index <= len(matched_ids):
-                selections.append(matched_ids[index - 1])
-        except ValueError:
-            continue
-    return selections
-
-def process_batch_update(file_path, batch_input_string):
+def process_batch_update(batch_input):
     try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
+        data = json.loads(FILE_PATH.read_text(encoding="utf-8"))
     except Exception:
-        print(f"{RED}Error: Failed to load JSON from {file_path}{RESET}")
-        return
+        print(f"{RED}Konnte {FILE_PATH} nicht lesen.{RESET}")
+        sys.exit(1)
 
-    lines = batch_input_string.strip().split('\n')
-    data_changed = False
+    lines = [l for l in batch_input.strip().splitlines() if l.strip()]
+    changed = False
 
-    for line_num, line in enumerate(lines, start=1):
-        line = line.strip()
-        if not line:
+    for ln,line in enumerate(lines,1):
+        print(f"{CYAN}Processing Line {ln}:{RESET} {line}")
+        m = re.match(r"([PHS])\s*([-]?\d+)\s*:\s*(.+)", line, re.I)
+        if not m:
+            print(f"{RED}Line {ln}: Formatfehler.{RESET}")
             continue
 
-        print(f"{CYAN}Processing Line {line_num}:{RESET} {line}")
+        code, value, names = m.group(1).upper(), m.group(2), m.group(3)
+        field = {"P":"punkte","H":"punktehalb","S":"strafen"}[code]
 
-        match = re.match(r"([PHS])([^:]+):\s*(.*)", line)
-        if not match:
-            print(f"{RED}Line {line_num}: Invalid format. Skipping.{RESET}")
-            continue
-
-        code = match.group(1)
-        value = match.group(2).strip()
-        names = [n.strip() for n in match.group(3).split(',') if n.strip()]
-
-        field = {"P": "punkte", "H": "punktehalb", "S": "strafen"}.get(code)
-        if not field:
-            continue
-
-        for name in names:
+        for raw_name in names.split(","):
+            name = raw_name.strip()
+            if not name:
+                continue
             ids = find_matching_user_ids(name.lower(), data)
-            selected_ids = []
 
-            if len(ids) == 1:
-                selected_ids = ids
-            elif len(ids) > 1:
-                selected_ids = prompt_user_to_select(name, ids, data, line_num)
-            else:
-                print(f"{RED}Line {line_num}: Not found - {name}{RESET}")
+            if not ids:
+                print(f"{RED}Line {ln}: Not found – {name}{RESET}")
+                continue
 
-            for uid in selected_ids:
-                person = data.get(uid)
-                if person:
-                    current = person.get(field)
-                    person[field] = value if current is None else str(current) + value
-                    print(f"{GREEN}Line {line_num}: ({code}{value}) {person.get('name', 'N/A')}{RESET}")
-                    data_changed = True
+            # Mehrdeutiger Name? → alle treffen oder hier Auswahl einbauen
+            for uid in ids:
+                apply_update(data[uid], field, value, code)
+                print(f"{GREEN}Line {ln}: ({code}{value}) {data[uid]['name']}{RESET}")
+                changed = True
 
-    if data_changed:
+    if changed:
         try:
-            with open(file_path, 'w', encoding='utf-8') as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
+            FILE_PATH.write_text(json.dumps(data, indent=2, ensure_ascii=False),
+                                 encoding="utf-8")
         except Exception:
-            print(f"{RED}Error: Failed to write updates to file{RESET}")
+            print(f"{RED}Fehler beim Schreiben von {FILE_PATH}{RESET}")
 
-# --- Run tool ---
+# ---------------- CLI-Loop ----------------
 if __name__ == "__main__":
-    json_file_path = "data.json"
-
-    print(f"JSON Update Tool - Using file: {json_file_path}")
-    print("----------------------------------------------------")
-    print("Enter update lines (e.g., P3: name1, name2)")
-    print("Type 'end' to apply updates or 'exit' to quit.")
-    print("----------------------------------------------------")
+    print(f"JSON-Update-Tool – Datei: {FILE_PATH}")
+    print("Eingabe wie:  P3: Max Mustermann")
+    print("Mehrere Zeilen, dann 'end' zum Ausführen, 'exit' zum Beenden.\n")
 
     while True:
-        print("\nEnter batch update lines:")
         batch_lines = []
         while True:
             try:
                 line = input()
             except EOFError:
-                print("EOF detected. Exiting.")
-                exit()
-
-            if line.strip().lower() == 'end':
+                sys.exit()
+            if line.lower().strip() == "end":
                 break
-            if line.strip().lower() == 'exit':
-                print("Exiting tool.")
-                exit()
+            if line.lower().strip() == "exit":
+                sys.exit()
             batch_lines.append(line)
 
-        if not batch_lines:
-            print("No input provided.")
-            continue
-
-        batch_input = "\n".join(batch_lines)
-        process_batch_update(json_file_path, batch_input)
-        print("-" * 50)
+        if batch_lines:
+            process_batch_update("\n".join(batch_lines))
+        else:
+            print("Keine Eingabe erkannt.")
