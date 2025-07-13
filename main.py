@@ -90,11 +90,28 @@ def process_batch_update(batch_input):
                 print(f"{RED}Line {ln}: Not found – {name}{RESET}")
                 continue
 
-            # Mehrdeutiger Name? → alle treffen oder hier Auswahl einbauen
-            for uid in ids:
+            if len(ids) > 1:
+                print(f"{YELLOW}Line {ln}: Ambiguous name '{name}'. Please choose:{RESET}")
+                for i, uid in enumerate(ids, 1):
+                    print(f"  {i}: {data[uid]['name']} (ID: {uid})")
+                try:
+                    choice = input("Choose number or press Enter to skip: ").strip()
+                    if not choice or not choice.isdigit() or not (1 <= int(choice) <= len(ids)):
+                        print(f"{YELLOW}Übersprungen.{RESET}")
+                        continue
+                    uid = ids[int(choice)-1]
+                    apply_update(data[uid], field, value, code)
+                    print(f"{GREEN}Line {ln}: ({code}{value}) {data[uid]['name']}{RESET}")
+                    changed = True
+                except Exception:
+                    print(f"{RED}Fehler bei der Auswahl. Übersprungen.{RESET}")
+                    continue
+            else:
+                uid = ids[0]
                 apply_update(data[uid], field, value, code)
                 print(f"{GREEN}Line {ln}: ({code}{value}) {data[uid]['name']}{RESET}")
                 changed = True
+
 
     if changed:
         try:
