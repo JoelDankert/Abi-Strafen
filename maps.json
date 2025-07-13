@@ -1,0 +1,20 @@
+{
+  "penaltyMap": {
+    "0": { "grund": "Gemeldet aber nicht aufgetaucht", "betrag": "20 €" },
+    "1": { "grund": "< 24 h vor Dienst abgesagt",      "betrag": "10 €" },
+    "2": { "grund": "Sachen vergessen für Dienst",     "betrag": "10 €" },
+    "3": { "grund": "Am Ende < 5 geleistete Dienste",  "betrag": "50 €" }
+  },
+  "punkteMap": {
+    "0": "Verkauf Getränke/Essen",
+    "1": "Briefe verteilen",
+    "2": "Bewirtung Theater",
+    "3": "Kuchen backen",
+    "4": "Verkauf Flohmarkt",
+    "5": "Verkauf Badminton",
+    "6": "Salat gemacht",
+    "7": "Waffelteig gemacht",
+    "8": "Bewirtung 5er",
+    "9": "Bewirtung Abiball"
+  }
+}
