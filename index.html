@@ -304,24 +304,25 @@ function showUser() {
   if (key === "ADMIN") {
     let out = "Übersicht aller Nutzer:\n\n---------------------------------\n";
     for (const id in data) {
-      const u = data[id];
+  const u = data[id];
 
-      const punkte      = splitTokens(u.punkte);
-      const punktehalb  = splitTokens(u.punktehalb);
-      const strafenTok  = splitTokens(u.strafen);
+  const punkte      = splitTokens(u.punkte || "");
+  const punktehalb  = splitTokens(u.punktehalb || "");
+  const strafenTok  = splitTokens(u.strafen || "");
 
-      // Summe berechnen (nur nicht gestrichene Strafen)
-      let sum = 0;
-      strafenTok.forEach(t => {
-        if (!t.startsWith("-") && penaltyMap[t])
-          sum += parseInt(penaltyMap[t].betrag);
-      });
+  // Summe berechnen (nur nicht gestrichene Strafen)
+  let sum = 0;
+  strafenTok.forEach(t => {
+    const code = t.startsWith("-") ? t.slice(1) : t;
+    if (!t.startsWith("-") && penaltyMap[code])
+      sum += parseInt(penaltyMap[code].betrag);
+  });
 
-      out += `Key: ${id}\nName: ${u.name}\n`;
-      out += `Punkte: ${punkte.length}\nHalbe: ${punktehalb.length}\n`;
-      out += `Strafen: ${strafenTok.filter(t => !t.startsWith("-")).length}\n`;
-      out += `Summe: ${sum} €\n---------------------------------\n`;
-    }
+  out += `Key: ${id}\nName: ${u.name || "(kein Name)"}\n`;
+  out += `Punkte: ${punkte.length}\nHalbe: ${punktehalb.length}\n`;
+  out += `Strafen: ${strafenTok.filter(t => !t.startsWith("-")).length}\n`;
+  out += `Summe: ${sum} €\n---------------------------------\n`;
+}
     document.body.innerHTML = "<pre>" + out + "</pre>";
     return;
   }
