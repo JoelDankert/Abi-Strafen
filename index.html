@@ -439,7 +439,10 @@ window.addEventListener("DOMContentLoaded", () => {
   if (!kp) return;
   document.getElementById("key").value = kp;
   const wait = setInterval(() => {
-    if (Object.keys(data).length) { showUser(); clearInterval(wait); }
+    if (Object.keys(data).length && Object.keys(penaltyMap).length) {
+      clearInterval(wait);
+      showUser();
+    }
   }, 80);
 });
 </script>
