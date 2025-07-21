@@ -292,7 +292,16 @@ fetch("data.json?nocache=" + Date.now())
 /* -----------------------------------------------------------
    Klick-Handler
 ----------------------------------------------------------- */
-document.getElementById("submitBtn").addEventListener("click", showUser);
+
+document.getElementById("submitBtn").addEventListener("click", () => {
+  const wait = setInterval(() => {
+    if (Object.keys(data).length && Object.keys(penaltyMap).length) {
+      clearInterval(wait);
+      showUser();
+    }
+  }, 50);
+});
+
 
 function showUser() {
   const keyInput  = document.getElementById("key");
