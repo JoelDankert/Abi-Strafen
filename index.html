@@ -262,32 +262,23 @@ function log(msg) {
 let penaltyMap = {};
 let punkteMap = {};
 
-fetch('maps.json')
-  .then(response => {
-    if (!response.ok) throw new Error("Failed to load maps.json");
-    return response.json();
-  })
-  .then(data => {
-    penaltyMap = data.penaltyMap;
-    punkteMap = data.punkteMap;
+Promise.all([
+  fetch('maps.json').then(r => r.json()),
+  fetch('data.json?nocache=' + Date.now()).then(r => r.json())
+])
+.then(([maps, userData]) => {
+  penaltyMap = maps.penaltyMap;
+  punkteMap = maps.punkteMap;
+  data = userData;
 
-    // Optional: If data.json is already loaded and key param is present, trigger showUser
-    const kp = new URLSearchParams(location.search).get("key");
-    if (kp && Object.keys(data).length) showUser();
-  })
-  .catch(error => {
-    console.error("Error loading maps.json:", error);
-  });
-
-
-/* -----------------------------------------------------------
-   JSON laden
------------------------------------------------------------ */
-let data = {};
-fetch("data.json?nocache=" + Date.now())
-  .then(r => r.json())
-  .then(json => { data = json; })
-  .catch(err => console.error("Fehler beim Laden der JSON:", err));
+  // auto lookup
+  const kp = new URLSearchParams(location.search).get("key");
+  if (kp) {
+    document.getElementById("key").value = kp;
+    showUser();
+  }
+})
+.catch(err => console.error("Fehler beim Laden der JSON-Dateien:", err));
 
 /* -----------------------------------------------------------
    Klick-Handler
@@ -438,11 +429,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const kp = new URLSearchParams(location.search).get("key");
   if (!kp) return;
   document.getElementById("key").value = kp;
+
   const wait = setInterval(() => {
     if (Object.keys(data).length && Object.keys(penaltyMap).length) {
       clearInterval(wait);
       showUser();
     }
-  }, 80);
+  }, 50);
 });
 </script>
