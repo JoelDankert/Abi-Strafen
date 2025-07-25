@@ -1,7 +1,7 @@
 {
   "4c52d15": {
     "name": "Jule Aicher",
-    "punkte": "1 9",
+    "punkte": "1 9 10 10",
     "punktehalb": "3",
     "strafen": ""
   },
@@ -13,13 +13,13 @@
   },
   "6c38f97": {
     "name": "Adnan Al Halabi",
-    "punkte": "1 0",
+    "punkte": "1 0 10 10",
     "punktehalb": "6 3",
     "strafen": ""
   },
   "d22e07a": {
     "name": "Batoul Al Halabi",
-    "punkte": "1 9",
+    "punkte": "1 9 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -31,13 +31,13 @@
   },
   "9a264d7": {
     "name": "Greta Banzhaf",
-    "punkte": "0 9",
+    "punkte": "0 9 10",
     "punktehalb": "3",
     "strafen": ""
   },
   "88689b1": {
     "name": "Emily Berg",
-    "punkte": "1 2 9",
+    "punkte": "1 2 9 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -49,7 +49,7 @@
   },
   "d44d5d5": {
     "name": "Leon Bezner",
-    "punkte": "1 5",
+    "punkte": "1 5 10",
     "punktehalb": "2",
     "strafen": ""
   },
@@ -61,31 +61,31 @@
   },
   "0fc4bc6": {
     "name": "Nicolas Blaudischek",
-    "punkte": "1 0 9",
+    "punkte": "1 0 9 10",
     "punktehalb": "",
     "strafen": ""
   },
   "7f3681c": {
     "name": "Bohun Sophie",
-    "punkte": "1 0 2 4 9",
+    "punkte": "1 0 2 4 9 10 10 10",
     "punktehalb": "",
     "strafen": ""
   },
   "7ad7311": {
     "name": "Lotta Brettner",
-    "punkte": "1 9",
+    "punkte": "1 9 10",
     "punktehalb": "3",
     "strafen": ""
   },
   "327a83f": {
     "name": "Jana Brumhadt",
-    "punkte": "1 5",
+    "punkte": "1 5 10 10",
     "punktehalb": "3",
     "strafen": ""
   },
   "4d0e4ee": {
     "name": "Sardiana Bytyqi",
-    "punkte": "1 2",
+    "punkte": "1 2 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -97,7 +97,7 @@
   },
   "70d42b2": {
     "name": "Joel Dankert",
-    "punkte": "1 0 4 9",
+    "punkte": "1 0 4 9 10 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -109,7 +109,7 @@
   },
   "9b00629": {
     "name": "Dave Fink",
-    "punkte": "1 9",
+    "punkte": "1 9 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -127,73 +127,73 @@
   },
   "43d7c80": {
     "name": "Frieda Greiling",
-    "punkte": "2 9",
+    "punkte": "2 9 10",
     "punktehalb": "3",
     "strafen": ""
   },
   "38f89f8": {
     "name": "Felix Hafner",
-    "punkte": "1 4 9",
+    "punkte": "1 4 9 10",
     "punktehalb": "",
     "strafen": ""
   },
   "6fa9dbb": {
     "name": "Gresa Haliti",
-    "punkte": "1 9",
+    "punkte": "1 9 10 10",
     "punktehalb": "3",
     "strafen": ""
   },
   "ddfeb91": {
     "name": "Morice Haller",
-    "punkte": "1 5 9",
+    "punkte": "1 5 9 10",
     "punktehalb": "3 7",
     "strafen": ""
   },
   "947cea9": {
     "name": "Eric Harsch",
-    "punkte": "1 9",
+    "punkte": "1 9 10",
     "punktehalb": "",
     "strafen": ""
   },
   "7e3911d": {
     "name": "Henry Heinemann",
-    "punkte": "1 4 5 9",
+    "punkte": "1 4 5 9 10 10",
     "punktehalb": "7",
     "strafen": ""
   },
   "ff6e318": {
     "name": "Amelie Heß",
-    "punkte": "1 0 9",
+    "punkte": "1 0 9 10 10",
     "punktehalb": "",
     "strafen": ""
   },
   "47b49cb": {
     "name": "Tabea Holler",
-    "punkte": "1 0 4 5 9",
+    "punkte": "1 0 4 5 9 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
   "e2a3a6a": {
     "name": "Nele Honer",
-    "punkte": "1 4 9",
+    "punkte": "1 4 9 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
   "91e0476": {
     "name": "Alexandra Izvekov",
-    "punkte": "1 0 5",
+    "punkte": "1 0 5 10",
     "punktehalb": "7",
     "strafen": ""
   },
   "43c063a": {
     "name": "Manuel Jakowenko",
-    "punkte": "1 9",
+    "punkte": "1 9 10 10",
     "punktehalb": "",
     "strafen": ""
   },
   "14a56d9": {
     "name": "Lena Katzer",
-    "punkte": "1 0",
+    "punkte": "1 0 10 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
@@ -223,7 +223,7 @@
   },
   "ff51973": {
     "name": "Vanessa Lujic",
-    "punkte": "1 0 2 4 9",
+    "punkte": "1 0 2 4 9 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -235,37 +235,37 @@
   },
   "853ead1": {
     "name": "Dominik Menzer",
-    "punkte": "1 4 9",
+    "punkte": "1 4 9 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
   "c123421": {
     "name": "Sara Niemann",
-    "punkte": "1",
+    "punkte": "1 10 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
   "34ccf4d": {
     "name": "Loreen Okraschevski",
-    "punkte": "1 0",
+    "punkte": "1 0 10 10",
     "punktehalb": "3",
     "strafen": ""
   },
   "c909a6a": {
     "name": "Chiara Opnic",
-    "punkte": "1 2 9",
+    "punkte": "1 2 9 10 10 10 10",
     "punktehalb": "2",
     "strafen": ""
   },
   "4722b84": {
     "name": "Michael Perepelitsyn",
-    "punkte": "1 0 9",
+    "punkte": "1 0 9 10",
     "punktehalb": "",
     "strafen": ""
   },
   "3d4f430": {
     "name": "Robert Perwuchin",
-    "punkte": "9",
+    "punkte": "9 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -277,7 +277,7 @@
   },
   "5700eac": {
     "name": "Raphael Remde",
-    "punkte": "1 0 8",
+    "punkte": "1 0 8 10 10 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -301,13 +301,13 @@
   },
   "4834c77": {
     "name": "Laurin Scheu",
-    "punkte": "9",
+    "punkte": "9 10 10 10",
     "punktehalb": "",
     "strafen": ""
   },
   "2832c23": {
     "name": "David Schumacher",
-    "punkte": "",
+    "punkte": "10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -319,13 +319,13 @@
   },
   "e610b33": {
     "name": "Erik Schwarz",
-    "punkte": "2",
+    "punkte": "2 10",
     "punktehalb": "",
     "strafen": ""
   },
   "d60eabc": {
     "name": "Athihthian Sriranjan",
-    "punkte": "2",
+    "punkte": "2 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -337,19 +337,19 @@
   },
   "9492c70": {
     "name": "Kristin Stamp",
-    "punkte": "2 9",
+    "punkte": "2 9 10",
     "punktehalb": "",
     "strafen": ""
   },
   "759ce1d": {
     "name": "Luzie Stoffel",
-    "punkte": "1 0 2 9",
+    "punkte": "1 0 2 9 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
   "422c412": {
     "name": "Eda Süzgün",
-    "punkte": "1 0 9",
+    "punkte": "1 0 9 10",
     "punktehalb": "3",
     "strafen": ""
   },
@@ -361,7 +361,7 @@
   },
   "9f8de7d": {
     "name": "Silas Truppe",
-    "punkte": "1 0 9",
+    "punkte": "1 0 9 10",
     "punktehalb": "6",
     "strafen": ""
   },
@@ -373,7 +373,7 @@
   },
   "b814be7": {
     "name": "Serafina Uhl",
-    "punkte": "4 9",
+    "punkte": "4 9 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -391,19 +391,19 @@
   },
   "fe6bbc3": {
     "name": "Lisa Winze",
-    "punkte": "0 9",
+    "punkte": "0 9 10",
     "punktehalb": "3",
     "strafen": ""
   },
   "591d404": {
     "name": "Laurin Witt",
-    "punkte": "1 0 2 4 8 9",
+    "punkte": "1 0 2 4 8 9 10",
     "punktehalb": "",
     "strafen": ""
   },
   "0c7e262": {
     "name": "Kayla Woelke",
-    "punkte": "1 0 2 2 5 8 9",
+    "punkte": "1 0 2 2 5 8 9 10 10 10 10",
     "punktehalb": "3",
     "strafen": ""
   }
