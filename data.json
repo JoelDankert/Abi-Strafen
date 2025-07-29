@@ -20,13 +20,13 @@
   "d22e07a": {
     "name": "Batoul Al Halabi",
     "punkte": "1 9 10 10",
-    "punktehalb": "",
+    "punktehalb": "3",
     "strafen": ""
   },
   "53953fd": {
     "name": "Selin Aydemir",
-    "punkte": "1 9",
-    "punktehalb": "3",
+    "punkte": "1 9 10",
+    "punktehalb": "3 3",
     "strafen": ""
   },
   "9a264d7": {
@@ -61,7 +61,7 @@
   },
   "0fc4bc6": {
     "name": "Nicolas Blaudischek",
-    "punkte": "1 0 9 10",
+    "punkte": "1 0 9 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -91,13 +91,13 @@
   },
   "7677b0f": {
     "name": "Marijan Celic",
-    "punkte": "1 2 5 9",
+    "punkte": "1 2 5 9 10",
     "punktehalb": "",
     "strafen": ""
   },
   "70d42b2": {
     "name": "Joel Dankert",
-    "punkte": "1 0 4 9 10 10 10",
+    "punkte": "1 0 4 9 10 10 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -115,7 +115,7 @@
   },
   "099cce1": {
     "name": "Rico Geiger",
-    "punkte": "1 9",
+    "punkte": "1 9 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -140,7 +140,7 @@
   "6fa9dbb": {
     "name": "Gresa Haliti",
     "punkte": "1 9 10 10",
-    "punktehalb": "3",
+    "punktehalb": "3 3",
     "strafen": ""
   },
   "ddfeb91": {
@@ -163,7 +163,7 @@
   },
   "ff6e318": {
     "name": "Amelie Heß",
-    "punkte": "1 0 9 10 10",
+    "punkte": "1 0 9 10 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -175,13 +175,13 @@
   },
   "e2a3a6a": {
     "name": "Nele Honer",
-    "punkte": "1 4 9 10",
+    "punkte": "1 4 9 10 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
   "91e0476": {
     "name": "Alexandra Izvekov",
-    "punkte": "1 0 5 10",
+    "punkte": "1 0 5 10 10",
     "punktehalb": "7",
     "strafen": ""
   },
@@ -199,7 +199,7 @@
   },
   "28ad41e": {
     "name": "Joscha Keck",
-    "punkte": "1 5 9",
+    "punkte": "1 5 9 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -211,13 +211,13 @@
   },
   "d178073": {
     "name": "Abdurrahim Kusku",
-    "punkte": "",
+    "punkte": "10",
     "punktehalb": "3",
     "strafen": ""
   },
   "2e1e182": {
     "name": "Manuel Löbel",
-    "punkte": "1 2 5 9",
+    "punkte": "1 2 5 9 10",
     "punktehalb": "7 3",
     "strafen": ""
   },
@@ -229,13 +229,13 @@
   },
   "36cf0af": {
     "name": "Sofia Martin",
-    "punkte": "1 0 2 4 9",
+    "punkte": "1 0 2 4 9 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
   "853ead1": {
     "name": "Dominik Menzer",
-    "punkte": "1 4 9 10",
+    "punkte": "1 4 9 10 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
@@ -259,7 +259,7 @@
   },
   "4722b84": {
     "name": "Michael Perepelitsyn",
-    "punkte": "1 0 9 10",
+    "punkte": "1 0 9 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -277,7 +277,7 @@
   },
   "5700eac": {
     "name": "Raphael Remde",
-    "punkte": "1 0 8 10 10 10 10",
+    "punkte": "1 0 8 10 10 10 10 10 10 10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -289,13 +289,13 @@
   },
   "75f864e": {
     "name": "Denis Rübhagen",
-    "punkte": "2",
+    "punkte": "2 10",
     "punktehalb": "",
     "strafen": ""
   },
   "b13be43": {
     "name": "Melis Sahin",
-    "punkte": "1 0 0 2",
+    "punkte": "1 0 0 2 10",
     "punktehalb": "3",
     "strafen": ""
   },
@@ -307,7 +307,7 @@
   },
   "2832c23": {
     "name": "David Schumacher",
-    "punkte": "10",
+    "punkte": "10 10",
     "punktehalb": "",
     "strafen": ""
   },
@@ -343,7 +343,7 @@
   },
   "759ce1d": {
     "name": "Luzie Stoffel",
-    "punkte": "1 0 2 9 10",
+    "punkte": "1 0 2 9 10 10",
     "punktehalb": "3 3",
     "strafen": ""
   },
@@ -355,14 +355,14 @@
   },
   "dfd8db9": {
     "name": "Alexandru Todor-Prundar",
-    "punkte": "2",
+    "punkte": "2 10",
     "punktehalb": "",
     "strafen": ""
   },
   "9f8de7d": {
     "name": "Silas Truppe",
-    "punkte": "1 0 9 10",
-    "punktehalb": "6",
+    "punkte": "1 0 9 10 10",
+    "punktehalb": "6 3",
     "strafen": ""
   },
   "6e0d18f": {
@@ -385,19 +385,19 @@
   },
   "91f0040": {
     "name": "Benjamin Wernz",
-    "punkte": "2",
+    "punkte": "2 10 10",
     "punktehalb": "",
     "strafen": "-3"
   },
   "fe6bbc3": {
     "name": "Lisa Winze",
-    "punkte": "0 9 10",
-    "punktehalb": "3",
+    "punkte": "0 9 10 10",
+    "punktehalb": "3 3",
     "strafen": ""
   },
   "591d404": {
     "name": "Laurin Witt",
-    "punkte": "1 0 2 4 8 9 10",
+    "punkte": "1 0 2 4 8 9 10 10 10",
     "punktehalb": "",
     "strafen": ""
   },
