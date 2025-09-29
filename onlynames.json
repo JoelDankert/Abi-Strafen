@@ -1,0 +1,410 @@
+[
+  {
+    "vorname": "Jule",
+    "nachname": "Aicher",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Max",
+    "nachname": "Aicher",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Adnan",
+    "nachname": "Al Halabi",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Batoul",
+    "nachname": "Al Halabi",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Selin",
+    "nachname": "Aydemir",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Greta",
+    "nachname": "Banzhaf",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Emily",
+    "nachname": "Berg",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Addison",
+    "nachname": "Berner",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Leon",
+    "nachname": "Bezner",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Riana",
+    "nachname": "Binisan",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Nicolas",
+    "nachname": "Blaudischek",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Bohun",
+    "nachname": "Sophie",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Lotta",
+    "nachname": "Brettner",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Jana",
+    "nachname": "Brumhadt",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Sardiana",
+    "nachname": "Bytyqi",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Marijan",
+    "nachname": "Celic",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Joel",
+    "nachname": "Dankert",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Berkay",
+    "nachname": "Dilsiz",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Dave",
+    "nachname": "Fink",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Rico",
+    "nachname": "Geiger",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Niklas",
+    "nachname": "Göckeler",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Frieda",
+    "nachname": "Greiling",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Felix",
+    "nachname": "Hafner",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Gresa",
+    "nachname": "Haliti",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Morice",
+    "nachname": "Haller",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Eric",
+    "nachname": "Harsch",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Henry",
+    "nachname": "Heinemann",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Amelie",
+    "nachname": "Heß",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Tabea",
+    "nachname": "Holler",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Nele",
+    "nachname": "Honer",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Alexandra",
+    "nachname": "Izvekov",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Manuel",
+    "nachname": "Jakowenko",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Lena",
+    "nachname": "Katzer",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Joscha",
+    "nachname": "Keck",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Felix",
+    "nachname": "Kopp",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Abdurrahim",
+    "nachname": "Kusku",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Manuel",
+    "nachname": "Löbel",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Vanessa",
+    "nachname": "Lujic",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Sofia",
+    "nachname": "Martin",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Dominik",
+    "nachname": "Menzer",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Sara",
+    "nachname": "Niemann",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Loreen",
+    "nachname": "Okraschevski",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Chiara",
+    "nachname": "Opnic",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Michael",
+    "nachname": "Perepelitsyn",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Robert",
+    "nachname": "Perwuchin",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Evelyn",
+    "nachname": "Reisbeck",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Raphael",
+    "nachname": "Remde",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Mathilde",
+    "nachname": "Rüberg",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Denis",
+    "nachname": "Rübhagen",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Melis",
+    "nachname": "Sahin",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Laurin",
+    "nachname": "Scheu",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "David",
+    "nachname": "Schumacher",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Nick",
+    "nachname": "Schumm",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Erik",
+    "nachname": "Schwarz",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Athihthian",
+    "nachname": "Sriranjan",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Noah",
+    "nachname": "Stadelhofer",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Kristin",
+    "nachname": "Stamp",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Luzie",
+    "nachname": "Stoffel",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Eda",
+    "nachname": "Süzgün",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Alexandru",
+    "nachname": "Todor-Prundar",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Silas",
+    "nachname": "Truppe",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Jasmin",
+    "nachname": "Tunali",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Serafina",
+    "nachname": "Uhl",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Noah",
+    "nachname": "Waldmann",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Benjamin",
+    "nachname": "Wernz",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Lisa",
+    "nachname": "Winze",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Laurin",
+    "nachname": "Witt",
+    "klasse": "11",
+    "nfc_uid": ""
+  },
+  {
+    "vorname": "Kayla",
+    "nachname": "Woelke",
+    "klasse": "11",
+    "nfc_uid": ""
+  }
+]
