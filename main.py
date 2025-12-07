@@ -125,6 +125,8 @@ if __name__ == "__main__":
     print(f"JSON-Update-Tool – Datei: {FILE_PATH}")
     print("Eingabe wie:  P3: Max Mustermann")
     print("Mehrere Zeilen, dann 'end' zum Ausführen, 'exit' zum Beenden.\n")
+    with open("maps.json","r") as f:
+        [print(x.strip()) for x in f.readlines()]
 
     while True:
         batch_lines = []

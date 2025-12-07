@@ -1,440 +1,418 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Abi-Orga – Dienste und Strafen</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
+    <head>
+        <meta charset="UTF-8">
+        <title>Abi-Orga – Dienste und Strafen</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-    }
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
 
     body {
-      font-family: Arial, sans-serif;
-      background: #f0f2f5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 7rem 2rem;
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 7rem 2rem;
     }
-  
+
 
     .container {
-      background: #fff;
-      padding: 2rem 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      width: 100%;
-      max-width: 420px;
-      text-align: center;
-      position: relative;
+        background: #fff;
+        padding: 2rem 1.5rem;
+        border-radius: 1rem;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+        position: relative;
     }
 
     h1 {
-      margin-bottom: 1.2rem;
-      color: #333;
-      font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+        color: #333;
+        font-size: 1.5rem;
     }
 
     label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-      font-size: 1rem;
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+        font-size: 1rem;
     }
 
     input[type="text"] {
-      width: 75%;
-      max-width: 280px;
-      margin: 0 auto 1rem auto;
-      display: block;
-      padding: 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      font-size: 1rem;
+        width: 75%;
+        max-width: 280px;
+        margin: 0 auto 1rem auto;
+        display: block;
+        padding: 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        font-size: 1rem;
     }
 
     button {
-      width: 75%;
-      max-width: 280px;
-      margin: 0 auto;
-      display: block;
-      padding: 0.8rem;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 0.5rem;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+        width: 75%;
+        max-width: 280px;
+        margin: 0 auto;
+        display: block;
+        padding: 0.8rem;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background-color: #0056b3;
+        background-color: #0056b3;
     }
 
     #result {
-      margin-top: 1.5rem;
-      text-align: left;
+        margin-top: 1.5rem;
+        text-align: left;
     }
 
     .dienst-label {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      display: inline-block;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        display: inline-block;
     }
 
     /* Tooltip container so the tooltip is anchored right beside "info" */
     .info-wrapper {
-      position: relative;
-      display: inline-block;
-      margin-left: 0.5rem;
+        position: relative;
+        display: inline-block;
+        margin-left: 0.5rem;
     }
 
     .info-text {
-      font-style: italic;
-      cursor: pointer;
-      color: #007bff;
+        font-style: italic;
+        cursor: pointer;
+        color: #007bff;
     }
 
     /* The tooltip that shows/hides on hover or tap */
     .tooltip {
-      position: absolute;
-      top: 110%;
-      left: 0;
-      padding: 0.5rem;
-      background: #f8f9fa;
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      font-size: 0.9rem;
-      display: none;
-      z-index: 9999;
-      width: max-content;
-      white-space: nowrap;
+        position: absolute;
+        top: 110%;
+        left: 0;
+        padding: 0.5rem;
+        background: #f8f9fa;
+        border: 1px solid #ccc;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        font-size: 0.9rem;
+        display: none;
+        z-index: 9999;
+        width: max-content;
+        white-space: nowrap;
     }
 
     /* Show the tooltip on desktop hover */
     .info-wrapper:hover .tooltip {
-      display: block;
+        display: block;
     }
 
     /* For mobile/tap toggle, we'll add/remove an "active" class in JS */
     .info-wrapper.active .tooltip {
-      display: block;
+        display: block;
     }
 
     .dots {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      margin-bottom: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1rem;
     }
 
     .dot {
-      width: 20px;
-      height: 20px;
-      border-radius: 4px;
-      background-color: #ccc;
+        width: 20px;
+        height: 20px;
+        border-radius: 4px;
+        background-color: #ccc;
     }
 
     .dot.green {
-      background-color: #28a745;
+        background-color: #28a745;
     }
 
-		.dot.half {
-      background: linear-gradient(to right, #28a745ff 50%, #dc354500 50%);
-		}
+    .dot.half {
+        background: linear-gradient(to right, #28a745ff 50%, #dc354500 50%);
+    }
 
-		.dot.halfred {
-		  background: linear-gradient(to right, #28a745 50%, #dc3545 50%);
-		}
+    .dot.halfred {
+        background: linear-gradient(to right, #28a745 50%, #dc3545 50%);
+    }
 
     .dot.red {
-      background-color: #dc3545;
+        background-color: #dc3545;
     }
 
     table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 1rem;
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1rem;
     }
 
     td {
-      padding: 0.6rem 0.4rem;
-      border-bottom: 1px solid #eee;
-      font-size: 0.95rem;
+        padding: 0.6rem 0.4rem;
+        border-bottom: 1px solid #eee;
+        font-size: 0.95rem;
     }
 
     td:first-child {
-      font-weight: bold;
+        font-weight: bold;
     }
 
     .not-found {
-      color: red;
+        color: red;
     }
 
     footer {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: 0.8rem;
-      color: #777;
-      background: #f0f2f5;
-      padding: 0.5rem 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #777;
+        background: #f0f2f5;
+        padding: 0.5rem 0;
     }
 
     .progress-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 0.5rem 0;
-      background: #f0f2f5;
-      z-index: 1000;
-      text-align: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 0.5rem 0;
+        background: #f0f2f5;
+        z-index: 1000;
+        text-align: center;
     }
 
     .progress-bg {
-      width: 90%;
-      max-width: 600px;
-      height: 10px;
-      background-color: #ddd;
-      margin: 0 auto;
-      border-radius: 5px;
-      overflow: hidden;
+        width: 90%;
+        max-width: 600px;
+        height: 10px;
+        background-color: #ddd;
+        margin: 0 auto;
+        border-radius: 5px;
+        overflow: hidden;
     }
 
     .progress-fill {
-      height: 100%;
-      background-color: #007bff;
-      transition: width 0.3s ease;
+        height: 100%;
+        background-color: #007bff;
+        transition: width 0.3s ease;
     }
-  </style>
-</head>
-<body>
+        </style>
+    </head>
+    <body>
 
-	<div class="progress-container">
-	  <div class="progress-bg">
-	    <div class="progress-fill" style="width: 30%;"></div>
-	  </div>
-	  <p>Schon >30% finanziert - weiter so!</p>
-	</div>
-
-  <div class="container" id="mainContainer">
-    <h1>Dienste einsehen</h1>
-    <div id="inputArea">
-      <label for="key">Dein Key:</label>
-      <input type="text" id="key" placeholder="z.B. b36e3e62ac" required>
-      <button id="submitBtn">Anzeigen</button>
-    </div>
-    <div id="result"></div>
-  </div>
-
-  <footer>
-    <p>Zuletzt aktualisiert am 24.11.2025<br>
-    Bei Fehlern bitte beim Abikassen-Komitee melden.</p>
-  </footer>
-
-<script>
-/* -----------------------------------------------------------
-   Hilfsfunktionen
------------------------------------------------------------ */
-function splitTokens(str = "") {
-  // Trim und alle Whitespaces (Tab, Zeilenumbruch, Mehrfach-Space) als Trenner
-  return str.trim().split(/\s+/).filter(Boolean);
-}
-
-function log(msg) {
-  const logEl = document.getElementById("log");
-  if (logEl) logEl.innerHTML += `<div>${msg}</div>`;
-}
-
-/* -----------------------------------------------------------
-   Konfigurationstabellen
------------------------------------------------------------ */
-let penaltyMap = {};
-let punkteMap = {};
-
-Promise.all([
-  fetch('maps.json').then(r => r.json()),
-  fetch('data.json?nocache=' + Date.now()).then(r => r.json())
-])
-.then(([maps, userData]) => {
-  penaltyMap = maps.penaltyMap;
-  punkteMap = maps.punkteMap;
-  data = userData;
-
-  // auto lookup
-  const kp = new URLSearchParams(location.search).get("key");
-  if (kp) {
-    document.getElementById("key").value = kp;
-    showUser();
-  }
-})
-.catch(err => console.error("Fehler beim Laden der JSON-Dateien:", err));
-
-/* -----------------------------------------------------------
-   Klick-Handler
------------------------------------------------------------ */
-
-document.getElementById("submitBtn").addEventListener("click", () => {
-  const wait = setInterval(() => {
-    if (Object.keys(data).length && Object.keys(penaltyMap).length) {
-      clearInterval(wait);
-      showUser();
-    }
-  }, 50);
-});
-
-
-function showUser() {
-  const keyInput  = document.getElementById("key");
-  const key       = keyInput.value.trim();
-  const resultDiv = document.getElementById("result");
-  keyInput.blur();
-
-  /* ---------- ADMIN ---------- */
-  if (key === "ADMIN") {
-    let out = "Übersicht aller Nutzer:\n\n---------------------------------\n";
-    for (const id in data) {
-  const u = data[id];
-
-  const punkte      = splitTokens(u.punkte || "");
-  const punktehalb  = splitTokens(u.punktehalb || "");
-  const strafenTok  = splitTokens(u.strafen || "");
-
-  // Summe berechnen (nur nicht gestrichene Strafen)
-  let sum = 0;
-  strafenTok.forEach(t => {
-    const code = t.startsWith("-") ? t.slice(1) : t;
-    if (!t.startsWith("-") && penaltyMap[code])
-      sum += parseInt(penaltyMap[code].betrag);
-  });
-
-  out += `Key: ${id}\nName: ${u.name || "(kein Name)"}\n`;
-  out += `Punkte: ${punkte.length}\nHalbe: ${punktehalb.length}\n`;
-  out += `Strafen: ${strafenTok.filter(t => !t.startsWith("-")).length}\n`;
-  out += `Summe: ${sum} €\n---------------------------------\n`;
-}
-    document.body.innerHTML = "<pre>" + out + "</pre>";
-    return;
-  }
-
-  /* ---------- Normaler Nutzer ---------- */
-  const user = data[key];
-  if (!user) {
-    resultDiv.innerHTML =
-      '<p class="not-found">Key nicht gefunden. Bitte überprüfe deine Eingabe.</p>';
-    window.scrollBy(0, 1); window.scrollBy(0, -1);
-    return;
-  }
-
-  // Hide input area
-  document.getElementById("inputArea").style.display = "none";
-
-  const punkteTokens      = splitTokens(user.punkte);
-  const punkteHalfTokens  = splitTokens(user.punktehalb);
-  const strafenTokens     = splitTokens(user.strafen);
-
-  /* ---------- Dienste-Arrays ---------- */
-  const punkteArray     = punkteTokens     .map(c => punkteMap[c]).filter(Boolean);
-  const punkteHalfArray = punkteHalfTokens .map(c => punkteMap[c]).filter(Boolean);
-
-  /* ---------- Punkte-Zählung ---------- */
-  let pointsTotal = punkteArray.length + punkteHalfArray.length * 0.5;
-
-  /* ---------- Dots-HTML ---------- */
-  let dotsHTML = "";
-  for (let i = 0; i < Math.floor(pointsTotal); i++)
-    dotsHTML += '<div class="dot green"></div>';
-
-  if (pointsTotal % 1 !== 0) {      // halber Punkt
-    dotsHTML += pointsTotal >= 5
-      ? '<div class="dot half"></div>'
-      : '<div class="dot halfred"></div>';
-  }
-
-  if (pointsTotal < 5) {
-    for (let i = 0; i < 5 - Math.ceil(pointsTotal); i++)
-      dotsHTML += '<div class="dot red"></div>';
-  } else {
-    dotsHTML += "<t> - Danke, weiter so!</t>";
-  }
-
-  /* ---------- Strafen-Tabelle ---------- */
-  const strafenArray = [];
-  strafenTokens.forEach(t => {
-    const struck = t.startsWith("-");
-    const code   = struck ? t.slice(1) : t;
-    const map    = penaltyMap[code];
-    if (!map) return;
-    strafenArray.push({
-      grund  : struck ? "-" + map.grund : map.grund,
-      betrag : map.betrag
-    });
-  });
-
-  let tableHTML = "<table>";
-  for (const s of strafenArray) {
-    const g = s.grund.startsWith("-") ? "<s>" + s.grund.slice(1) + "</s>" : s.grund;
-    const b = s.grund.startsWith("-") ? "<s>" + s.betrag + "</s>"            : s.betrag;
-    tableHTML += `<tr><td>${g}</td><td>${b}</td></tr>`;
-  }
-  tableHTML += "</table>";
-
-  /* ---------- Render ---------- */
-  resultDiv.innerHTML = `
-    <h2>Hallo ${user.name}!</h2>
-    <div class="dienst-label">
-      Dienste:
-      <div class="info-wrapper">
-        <span id="info-text" class="info-text"><em>info</em></span>
-        <div id="tooltip" class="tooltip">
-          <t>Punkte:</t>
-          <ul style="margin:0; padding-left:20px;">
-            ${punkteArray.map(p => `<li><strong>${p}</strong></li>`).join("")}
-          </ul><br>
-          <t>Halbe Punkte:</t>
-          <ul style="margin:0; padding-left:20px;">
-            ${punkteHalfArray.map(p => `<li>${p}</li>`).join("")}
-          </ul>
+        <div class="progress-container">
+            <div class="progress-bg">
+                <div class="progress-fill" style="width: 80%;"></div>
+            </div>
+            <p>Schon >80% finanziert - weiter so!</p>
         </div>
-      </div>
-    </div>
-    <div class="dots">${dotsHTML}</div>
-    ${tableHTML}
-  `;
 
-  /* ---------- Tooltip-Toggle (mobil) ---------- */
-  const infoWrapper = document.querySelector(".info-wrapper");
-  document.getElementById("info-text").onclick = e => {
-    e.stopPropagation();
-    infoWrapper.classList.toggle("active");
-  };
-  document.addEventListener("click", () => infoWrapper.classList.remove("active"));
-  document.getElementById("tooltip").onclick = e => e.stopPropagation();
-}
+        <div class="container" id="mainContainer">
+            <h1>Dienste einsehen</h1>
+            <div id="inputArea">
+                <label for="key">Dein Key:</label>
+                <input type="text" id="key" placeholder="z.B. b36e3e62ac" required>
+                <button id="submitBtn">Anzeigen</button>
+            </div>
+            <div id="result"></div>
+        </div>
 
-/* -----------------------------------------------------------
-   Auto-Lookup mit ?key=XYZ
------------------------------------------------------------ */
-window.addEventListener("DOMContentLoaded", () => {
-  const kp = new URLSearchParams(location.search).get("key");
-  if (!kp) return;
-  document.getElementById("key").value = kp;
+        <footer>
+            <p>Zuletzt aktualisiert am 7.12.2025<br>
+            Bei Fehlern bitte beim Abikassen-Komitee melden.</p>
+        </footer>
 
-  const wait = setInterval(() => {
-    if (Object.keys(data).length && Object.keys(penaltyMap).length) {
-      clearInterval(wait);
-      showUser();
-    }
-  }, 50);
-});
-</script>
+        <script>
+            function splitTokens(str = "") {
+                // Trim und alle Whitespaces (Tab, Zeilenumbruch, Mehrfach-Space) als Trenner
+                return str.trim().split(/\s+/).filter(Boolean);
+            }
+
+            function log(msg) {
+                const logEl = document.getElementById("log");
+                if (logEl) logEl.innerHTML += `<div>${msg}</div>`;
+            }
+
+            let penaltyMap = {};
+            let punkteMap = {};
+
+            Promise.all([
+                fetch('maps.json').then(r => r.json()),
+                fetch('data.json?nocache=' + Date.now()).then(r => r.json())
+            ])
+                .then(([maps, userData]) => {
+                    penaltyMap = maps.penaltyMap;
+                    punkteMap = maps.punkteMap;
+                    data = userData;
+
+                    // auto lookup
+                    const kp = new URLSearchParams(location.search).get("key");
+                    if (kp) {
+                        document.getElementById("key").value = kp;
+                        showUser();
+                    }
+                })
+                .catch(err => console.error("Fehler beim Laden der JSON-Dateien:", err));
+
+            document.getElementById("submitBtn").addEventListener("click", () => {
+                const wait = setInterval(() => {
+                    if (Object.keys(data).length && Object.keys(penaltyMap).length) {
+                        clearInterval(wait);
+                        showUser();
+                    }
+                }, 50);
+            });
+
+
+            function showUser() {
+                const keyInput  = document.getElementById("key");
+                const key       = keyInput.value.trim();
+                const resultDiv = document.getElementById("result");
+                keyInput.blur();
+
+                if (key === "ADMIN") {
+                    let out = "Übersicht aller Nutzer:\n\n---------------------------------\n";
+                    for (const id in data) {
+                        const u = data[id];
+
+                        const punkte      = splitTokens(u.punkte || "");
+                        const punktehalb  = splitTokens(u.punktehalb || "");
+                        const strafenTok  = splitTokens(u.strafen || "");
+
+                        // Summe berechnen (nur nicht gestrichene Strafen)
+                        let sum = 0;
+                        strafenTok.forEach(t => {
+                            const code = t.startsWith("-") ? t.slice(1) : t;
+                            if (!t.startsWith("-") && penaltyMap[code])
+                                sum += parseInt(penaltyMap[code].betrag);
+                        });
+
+                        out += `Key: ${id}\nName: ${u.name || "(kein Name)"}\n`;
+                        out += `Punkte: ${punkte.length}\nHalbe: ${punktehalb.length}\n`;
+                        out += `Strafen: ${strafenTok.filter(t => !t.startsWith("-")).length}\n`;
+                        out += `Summe: ${sum} €\n---------------------------------\n`;
+                    }
+                    document.body.innerHTML = "<pre>" + out + "</pre>";
+                    return;
+                    }
+
+                    const user = data[key];
+                    if (!user) {
+                    resultDiv.innerHTML =
+                    '<p class="not-found">Key nicht gefunden. Bitte überprüfe deine Eingabe.</p>';
+                    window.scrollBy(0, 1); window.scrollBy(0, -1);
+                    return;
+                    }
+
+                    document.getElementById("inputArea").style.display = "none";
+
+                    const punkteTokens      = splitTokens(user.punkte);
+                    const punkteHalfTokens  = splitTokens(user.punktehalb);
+                    const strafenTokens     = splitTokens(user.strafen);
+
+                    const punkteArray     = punkteTokens     .map(c => punkteMap[c]).filter(Boolean);
+                    const punkteHalfArray = punkteHalfTokens .map(c => punkteMap[c]).filter(Boolean);
+
+                    let pointsTotal = punkteArray.length + punkteHalfArray.length * 0.5;
+
+                    let dotsHTML = "";
+                    for (let i = 0; i < Math.floor(pointsTotal); i++)
+                    dotsHTML += '<div class="dot green"></div>';
+
+                    if (pointsTotal % 1 !== 0) {      // halber Punkt
+                    dotsHTML += pointsTotal >= 5
+                    ? '<div class="dot half"></div>'
+                    : '<div class="dot halfred"></div>';
+                    }
+
+                    if (pointsTotal < 5) {
+                    for (let i = 0; i < 5 - Math.ceil(pointsTotal); i++)
+                    dotsHTML += '<div class="dot red"></div>';
+                    } else {
+                    dotsHTML += "<t> - Danke, weiter so!</t>";
+                    }
+
+                    const strafenArray = [];
+                    strafenTokens.forEach(t => {
+                    const struck = t.startsWith("-");
+                    const code   = struck ? t.slice(1) : t;
+                    const map    = penaltyMap[code];
+                    if (!map) return;
+                    strafenArray.push({
+                    grund  : struck ? "-" + map.grund : map.grund,
+                    betrag : map.betrag
+                    });
+                    });
+
+                    let tableHTML = "<table>";
+                        for (const s of strafenArray) {
+                        const g = s.grund.startsWith("-") ? "<s>" + s.grund.slice(1) + "</s>" : s.grund;
+                        const b = s.grund.startsWith("-") ? "<s>" + s.betrag + "</s>"            : s.betrag;
+                        tableHTML += `<tr><td>${g}</td><td>${b}</td></tr>`;
+                        }
+                        tableHTML += "</table>";
+
+                    resultDiv.innerHTML = `
+                    <h2>Hallo ${user.name}!</h2>
+                    <div class="dienst-label">
+                        Dienste:
+                        <div class="info-wrapper">
+                            <span id="info-text" class="info-text"><em>info</em></span>
+                            <div id="tooltip" class="tooltip">
+                                <t>Punkte:</t>
+                                <ul style="margin:0; padding-left:20px;">
+                                    ${punkteArray.map(p => `<li><strong>${p}</strong></li>`).join("")}
+                                </ul><br>
+                                <t>Halbe Punkte:</t>
+                                <ul style="margin:0; padding-left:20px;">
+                                    ${punkteHalfArray.map(p => `<li>${p}</li>`).join("")}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dots">${dotsHTML}</div>
+                    ${tableHTML}
+                    `;
+
+                    const infoWrapper = document.querySelector(".info-wrapper");
+                    document.getElementById("info-text").onclick = e => {
+                    e.stopPropagation();
+                    infoWrapper.classList.toggle("active");
+                    };
+                    document.addEventListener("click", () => infoWrapper.classList.remove("active"));
+                    document.getElementById("tooltip").onclick = e => e.stopPropagation();
+                    }
+
+                    window.addEventListener("DOMContentLoaded", () => {
+                    const kp = new URLSearchParams(location.search).get("key");
+                    if (!kp) return;
+                    document.getElementById("key").value = kp;
+
+                    const wait = setInterval(() => {
+                    if (Object.keys(data).length && Object.keys(penaltyMap).length) {
+                    clearInterval(wait);
+                    showUser();
+                    }
+                    }, 50);
+                    });
+        </script>
