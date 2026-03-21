@@ -8,7 +8,7 @@
   "386ea53": {
     "name": "Max Aicher",
     "punkte": "8",
-    "punktehalb": "3",
+    "punktehalb": "3 13",
     "strafen": ""
   },
   "6c38f97": {
@@ -50,7 +50,7 @@
   "d44d5d5": {
     "name": "Leon Bezner",
     "punkte": "1 5 10",
-    "punktehalb": "2",
+    "punktehalb": "2 13",
     "strafen": ""
   },
   "486dd40": {
@@ -110,7 +110,7 @@
   "9b00629": {
     "name": "Dave Fink",
     "punkte": "1 9 10",
-    "punktehalb": "",
+    "punktehalb": "13",
     "strafen": ""
   },
   "099cce1": {
@@ -133,8 +133,8 @@
   },
   "38f89f8": {
     "name": "Felix Hafner",
-    "punkte": "1 4 9 10",
-    "punktehalb": "",
+    "punkte": "1 4 9 10 14",
+    "punktehalb": "13",
     "strafen": ""
   },
   "6fa9dbb": {
@@ -266,7 +266,7 @@
   "3d4f430": {
     "name": "Robert Perwuchin",
     "punkte": "9 10 10",
-    "punktehalb": "",
+    "punktehalb": "13",
     "strafen": ""
   },
   "452c5b4": {
@@ -307,8 +307,8 @@
   },
   "2832c23": {
     "name": "David Schumacher",
-    "punkte": "10 10",
-    "punktehalb": "",
+    "punkte": "10 10 14",
+    "punktehalb": "13",
     "strafen": ""
   },
   "92e4cb7": {
